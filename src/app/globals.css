@@ -1,26 +1,128 @@
 @import "tailwindcss";
 
+/* Enable manual class-based dark mode in Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light mode palette */
+  --background: #FAF9F6; /* Ivory background */
+  --foreground: #1C1917; /* Charcoal dark text */
+  --accent-color: #4D7C0F; /* Warm olive accent */
+  
+  --card-bg: #F4F3EE;
+  --card-border: rgba(28, 25, 23, 0.08);
+  --border-muted: rgba(28, 25, 23, 0.06);
+}
+
+:root.dark {
+  /* Dark mode palette */
+  --background: #0B0A09; /* Deep Onyx background */
+  --foreground: #F5F5F4; /* Warm white text */
+  --accent-color: #10B981; /* Neon emerald accent */
+
+  --card-bg: #121110;
+  --card-border: rgba(245, 245, 244, 0.08);
+  --border-muted: rgba(245, 245, 244, 0.06);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent-color);
+  
+  --color-card: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-border-muted: var(--border-muted);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-serif: var(--font-instrument-serif);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom cursor styling overrides */
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(250, 249, 246, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .glass {
+  background: rgba(11, 10, 9, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Grainy noise backdrop overlay */
+.noise-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  content: "";
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 9998;
+  /* Optimized fractal noise: numOctaves reduced to 1 for high frame-rate performance */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.dark .noise-bg {
+  opacity: 0.045;
+}
+
+/* View transitions layout */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+.light::view-transition-old(root) {
+  z-index: 9999;
+}
+
+.light::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
 }
