@@ -2,24 +2,24 @@
 
 import React, { useEffect, useState } from 'react';
 import { Sun, Moon } from 'lucide-react';
-import useSound from '../hooks/useSound';
+import { ICON_BUTTON } from '@/lib/ui';
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const { playClick } = useSound();
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof document !== 'undefined') {
+      return document.documentElement.classList.contains('light') ? 'light' : 'dark';
+    }
+    return 'dark';
+  });
 
   useEffect(() => {
     const root = document.documentElement;
-    if (root.classList.contains('light')) {
-      setTheme('light');
-    } else {
+    if (!root.classList.contains('light') && !root.classList.contains('dark')) {
       root.classList.add('dark');
-      setTheme('dark');
     }
   }, []);
 
   const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
-    playClick();
     const isDark = theme === 'dark';
     const nextTheme = isDark ? 'light' : 'dark';
     const root = document.documentElement;
@@ -86,9 +86,8 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="relative p-2.5 rounded-full border border-stone-200 dark:border-stone-850 bg-stone-50 dark:bg-stone-900/50 text-stone-700 dark:text-stone-300 hover:text-stone-950 dark:hover:text-stone-50 transition-colors flex items-center justify-center overflow-hidden shadow-sm"
-      data-cursor="pointer"
-      aria-label="Toggle theme"
+      className={`${ICON_BUTTON} relative overflow-hidden`}
+      aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
     >
       <div className="relative w-5 h-5 flex items-center justify-center">
         {theme === 'dark' ? (

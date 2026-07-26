@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import CustomCursor from "@/components/CustomCursor";
+import Footer from "@/components/Footer";
 import TransitionProvider from "@/components/TransitionProvider";
 
 const geistSans = Geist({
@@ -23,8 +23,16 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Pratama Putra | The Editorial Engineer",
-  description: "Portfolio of Pratama Putra, a Software Architect & Creative Developer who bridges rigorous engineering with premium editorial digital aesthetics.",
+  title: "Mitra Partogi | Informatics & Competitive Programming",
+  description:
+    "Portofolio Mitra Partogi, mahasiswa Teknik Informatika ITS yang berfokus pada pemrograman kompetitif, sains data, dan pengajaran akademik.",
+  openGraph: {
+    title: "Mitra Partogi | Informatics & Competitive Programming",
+    description:
+      "Portofolio Mitra Partogi, mahasiswa Teknik Informatika ITS yang berfokus pada pemrograman kompetitif, sains data, dan pengajaran akademik.",
+    locale: "id_ID",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -34,23 +42,22 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="id"
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col relative selection:bg-accent selection:text-white dark:selection:text-stone-900">
         {/* Grain overlay */}
         <div className="noise-bg" />
-        
-        {/* Custom cursor pointer */}
-        <CustomCursor />
 
         {/* Global Navigation header */}
         <Navbar />
 
         {/* Dynamic page routes container */}
-        <main className="flex-1 flex flex-col pt-24 md:pt-28">
+        <main id="main-content" className="flex-1 flex flex-col pt-24 md:pt-28">
           <TransitionProvider>{children}</TransitionProvider>
         </main>
+
+        <Footer />
       </body>
     </html>
   );
