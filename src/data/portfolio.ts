@@ -16,6 +16,9 @@ export interface Experience {
   role: string;
   company: string;
   period: string;
+  /** Short course monogram shown on the timeline node, e.g. "SD". */
+  code: string;
+  sks: number;
   description: string;
   details: string[];
 }
@@ -31,14 +34,21 @@ export interface Achievement {
 
 export interface Skill {
   name: string;
-  category: "frontend" | "backend" | "tools" | "others";
-  icon: string;
+  category: "languages" | "core" | "tools";
+}
+
+export interface Stat {
+  value: number;
+  decimals?: number;
+  suffix?: string;
+  label: string;
 }
 
 export const personalInfo = {
   name: "Mitra Partogi",
   role: "Informatics Programmer & Competitive Programmer",
-  subRole: "Software Engineer & Data Science Enthusiast",
+  // Rotated by the hero's RoleTicker on the home page.
+  roles: ["Software Engineer", "Data Science Enthusiast", "Competitive Programmer"],
   bio: "Mahasiswa Teknik Informatika ITS yang berfokus pada efisiensi algoritma, pemrograman kompetitif, dan eksplorasi sains data untuk memecahkan masalah kompleks.",
   longBio:
     "Saya adalah mahasiswa Teknik Informatika di Institut Teknologi Sepuluh Nopember (ITS) yang memiliki ketertarikan mendalam di bidang pemrograman kompetitif dan sains data. Selain aktif mengeksplorasi algoritma, saya mendedikasikan waktu saya sebagai Asisten Dosen untuk membantu rekan mahasiswa memahami dasar pemrograman, struktur data, hingga sistem operasi. Saya juga berpengalaman dalam merancang soal kompetisi nasional serta mengembangkan sistem kontrol robot otonom.",
@@ -56,7 +66,7 @@ export const personalInfo = {
   location: "Surabaya, Indonesia",
   resumeUrl: "#",
   socials: {
-    github: "https://github.com",
+    github: "https://github.com/mitrapartogi13",
     linkedin: "http://www.linkedin.com/in/mitra-partogi",
     instagram: "https://instagram.com",
     twitter: "https://twitter.com",
@@ -86,6 +96,8 @@ export const teachingExperiences: Experience[] = [
     role: "Asisten Dosen - Struktur Data",
     company: "Departemen Teknik Informatika, ITS",
     period: "Februari 2026 - Sekarang",
+    code: "SD",
+    sks: 4,
     description:
       "Mengelola praktikum mata kuliah Struktur Data (4 SKS) dan memberikan asistensi pemrograman.",
     details: [
@@ -98,6 +110,8 @@ export const teachingExperiences: Experience[] = [
     role: "Asisten Dosen - Sistem Operasi",
     company: "Departemen Teknik Informatika, ITS",
     period: "Februari 2026 - Sekarang",
+    code: "SO",
+    sks: 4,
     description:
       "Membantu pelaksanaan praktikum dan pemahaman konsep inti sistem operasi (4 SKS).",
     details: [],
@@ -107,6 +121,8 @@ export const teachingExperiences: Experience[] = [
     role: "Asisten Dosen - Dasar Pemrograman",
     company: "Departemen Teknik Informatika, ITS",
     period: "September 2025 - Sekarang",
+    code: "DP",
+    sks: 4,
     description:
       "Membimbing mahasiswa tingkat awal dalam memahami fondasi pemrograman mendasar (4 SKS).",
     details: [
@@ -198,22 +214,27 @@ export const projects: Project[] = [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800",
     demoUrl: "#",
     githubUrl: "#",
-    featured: false,
+    featured: true,
   },
 ];
 
+// Real numbers only — sourced from the data above.
+export const stats: Stat[] = [
+  { value: 3.82, decimals: 2, label: "IPK / 4.00" },
+  { value: 100, suffix: "+", label: "Mahasiswa Dibimbing" },
+  { value: 3, suffix: "×", label: "Juara 1" },
+  { value: 3, label: "Mata Kuliah Diampu" },
+];
+
 export const skills: Skill[] = [
-  // Programming Languages
-  { name: "C / C++", category: "frontend", icon: "🚀" },
-  { name: "Python", category: "frontend", icon: "🐍" },
-  { name: "HTML", category: "frontend", icon: "🌐" },
-  // Core Skills
-  { name: "Algoritma & Struktur Data", category: "backend", icon: "📊" },
-  { name: "Competitive Programming", category: "backend", icon: "🏆" },
-  { name: "Logika Matematika", category: "backend", icon: "🧠" },
-  { name: "Sistem Kontrol Robot Otonom", category: "backend", icon: "🤖" },
-  // Tools
-  { name: "Linux / Ubuntu", category: "tools", icon: "🐧" },
-  { name: "Microsoft Office", category: "tools", icon: "📄" },
-  { name: "Google Spreadsheets", category: "tools", icon: "📈" },
+  { name: "C / C++", category: "languages" },
+  { name: "Python", category: "languages" },
+  { name: "HTML", category: "languages" },
+  { name: "Algoritma & Struktur Data", category: "core" },
+  { name: "Competitive Programming", category: "core" },
+  { name: "Logika Matematika", category: "core" },
+  { name: "Sistem Kontrol Robot Otonom", category: "core" },
+  { name: "Linux / Ubuntu", category: "tools" },
+  { name: "Microsoft Office", category: "tools" },
+  { name: "Google Spreadsheets", category: "tools" },
 ];

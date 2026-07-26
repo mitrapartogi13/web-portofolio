@@ -8,18 +8,19 @@
   /* Light mode palette */
   --background: #FAF9F6; /* Ivory background */
   --foreground: #1C1917; /* Charcoal dark text */
-  --accent-color: #4D7C0F; /* Warm olive accent */
-  
+  --accent-color: #A16207; /* Deep gold accent */
+
   --card-bg: #F4F3EE;
   --card-border: rgba(28, 25, 23, 0.08);
   --border-muted: rgba(28, 25, 23, 0.06);
+  --sky-500: #0ea5e9;
 }
 
 :root.dark {
   /* Dark mode palette */
   --background: #0B0A09; /* Deep Onyx background */
   --foreground: #F5F5F4; /* Warm white text */
-  --accent-color: #10B981; /* Neon emerald accent */
+  --accent-color: #D4AF37; /* Classic gold accent */
 
   --card-bg: #121110;
   --card-border: rgba(245, 245, 244, 0.08);
@@ -46,12 +47,6 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Custom cursor styling overrides */
-.custom-cursor-active,
-.custom-cursor-active * {
-  cursor: none !important;
 }
 
 /* Glassmorphism utility */
@@ -125,4 +120,43 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-color);
+}
+
+/* Visible keyboard focus, site-wide */
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
+}
+
+/* Editorial animated underline for inline links */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+/* Skills marquee — the only looping animation on the site */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 36s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
 }

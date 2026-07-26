@@ -10,7 +10,6 @@ import {
 } from 'framer-motion';
 import Image from 'next/image';
 import { Hand } from 'lucide-react';
-import useSound from '@/hooks/useSound';
 
 interface ProfileCardStackProps {
   images: string[];
@@ -69,7 +68,7 @@ export default function ProfileCardStack({
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: hasInteracted ? 0 : 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
-        className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-550"
+        className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500"
       >
         <Hand className="w-3.5 h-3.5 animate-pulse" />
         Geser kartu
@@ -99,7 +98,6 @@ function Card({
   onSwipe,
   onGrab,
 }: CardProps) {
-  const { playClick } = useSound();
 
   // Free drag position of the front card. Non-front cards keep these at 0.
   const x = useMotionValue(0);
@@ -124,7 +122,6 @@ function Card({
     const velocity = Math.hypot(info.velocity.x, info.velocity.y);
 
     if (distance > SWIPE_OFFSET_THRESHOLD || velocity > SWIPE_VELOCITY_THRESHOLD) {
-      playClick();
       // Fling along the direction it was thrown, flipping as it goes, then
       // send it to the back of the queue and reset for a clean re-entry.
       const norm = distance || 1;
@@ -177,24 +174,22 @@ function Card({
         whileTap={isFront ? { cursor: 'grabbing' } : undefined}
       >
         <div
-          className={`relative w-full h-full overflow-hidden rounded-3xl border border-card-border bg-stone-100 dark:bg-stone-900/30 p-2 shadow-xl shadow-stone-900/5 dark:shadow-black/30 ${
+          className={`relative w-full h-full overflow-hidden rounded-3xl ${
             isFront ? 'cursor-grab' : 'pointer-events-none'
           }`}
         >
-          <div className="relative w-full h-full overflow-hidden rounded-2xl">
-            <Image
-              src={card.src}
-              alt={alt}
-              fill
-              unoptimized
-              draggable={false}
-              sizes="(max-width: 768px) 100vw, 360px"
-              className={`object-cover transition-all duration-700 ease-in-out ${
-                isFront ? 'grayscale-0' : 'grayscale'
-              }`}
-              priority={isFront}
-            />
-          </div>
+          <Image
+            src={card.src}
+            alt={alt}
+            fill
+            unoptimized
+            draggable={false}
+            sizes="(max-width: 768px) 100vw, 360px"
+            className={`object-cover transition-all duration-700 ease-in-out ${
+              isFront ? 'grayscale-0' : 'grayscale'
+            }`}
+            priority={isFront}
+          />
         </div>
       </motion.div>
     </motion.div>
