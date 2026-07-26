@@ -3,6 +3,31 @@
 /* Enable manual class-based dark mode in Tailwind v4 */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Custom Local Fonts */
+@font-face {
+  font-family: '2PeasGift';
+  src: url('/fonts/2peas-gift/2PeasGift-Jp8B.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fanzine';
+  src: url('/fonts/fanzine/Fanzine-og8V.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-2peas {
+  font-family: '2PeasGift', cursive, sans-serif;
+}
+
+.font-fanzine {
+  font-family: 'Fanzine', display, sans-serif;
+}
+
 
 :root {
   /* Light mode palette */
@@ -39,6 +64,10 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-instrument-serif);
+}
+
+.font-2peas {
+  font-family: var(--font-2peas-gift), cursive, sans-serif;
 }
 
 body {

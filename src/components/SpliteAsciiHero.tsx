@@ -8,6 +8,8 @@ import { personalInfo, academicTimeline, achievements, stats } from "@/data/port
 import AsciiAvatarCanvas from "./AsciiAvatarCanvas";
 import { EASE, fadeUp, stagger } from "@/lib/motion";
 
+import RansomHeroName from "./RansomHeroName";
+
 /** Derive hero highlight chips from the actual data sources — never hardcode facts here. */
 function useHeroHighlights() {
   const academic = academicTimeline[0];
@@ -74,31 +76,25 @@ export default function SpliteAsciiHero() {
       className="relative w-full pt-1 pb-2 md:py-2 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center"
     >
       {/* Left Column: Text & CTAs */}
-      <div className="lg:col-span-6 space-y-3.5 sm:space-y-4 flex flex-col justify-center">
-        {/* Top Announcement — plain editorial label */}
+      <div className="lg:col-span-6 space-y-4 sm:space-y-5 flex flex-col justify-center">
+        {/* Top Announcement — plain editorial label without fake arrow */}
         <motion.div variants={fadeUp}>
           <Link
             href="/about"
-            className="group inline-flex items-center gap-2 pb-1 border-b border-stone-300 dark:border-stone-700 hover:border-stone-500 dark:hover:border-stone-500 transition-colors duration-300"
+            className="group inline-flex items-center gap-2 pb-0.5 border-b border-stone-300 dark:border-stone-700 hover:border-stone-500 dark:hover:border-stone-400 transition-colors duration-300"
           >
-            <span className="font-mono text-xs uppercase tracking-widest text-stone-700 dark:text-stone-300 font-medium">
+            <span className="text-xs font-medium uppercase tracking-widest text-stone-600 dark:text-stone-400">
               <RoleTicker />
-            </span>
-
-            <span className="text-stone-400 dark:text-stone-600 group-hover:translate-x-0.5 transition-transform duration-200">
-              →
             </span>
           </Link>
         </motion.div>
 
-        {/* Main Headline */}
-        <motion.div variants={fadeUp} className="space-y-1.5">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif tracking-tight text-stone-900 dark:text-stone-50 leading-[0.98] block">
-            {personalInfo.name}
-          </h1>
+        {/* Main Headline & Refined Subtitle */}
+        <motion.div variants={fadeUp} className="space-y-2">
+          <RansomHeroName />
 
-          <p className="font-mono text-xs sm:text-sm uppercase tracking-widest text-stone-500 dark:text-stone-400 font-medium">
-            {personalInfo.role}
+          <p className="text-sm sm:text-base font-medium tracking-wide text-stone-600 dark:text-stone-400">
+            Competitive Programmer &amp; Data Science Enthusiast
           </p>
         </motion.div>
 
@@ -110,56 +106,63 @@ export default function SpliteAsciiHero() {
           {personalInfo.bio}
         </motion.p>
 
-        {/* Interactive CTA Buttons */}
+        {/* Interactive CTA Buttons — primary focus */}
         <motion.div
           variants={fadeUp}
-          className="flex flex-wrap items-center gap-3 pt-0.5"
+          className="flex flex-wrap items-center gap-3 pt-2"
         >
           <Link
             href="/projects"
-            className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-full bg-stone-900 dark:bg-stone-50 text-stone-50 dark:text-stone-950 font-mono text-xs uppercase tracking-wider font-semibold shadow-md hover:shadow-stone-900/20 dark:hover:shadow-stone-100/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+            className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-stone-900 dark:bg-stone-50 text-stone-50 dark:text-stone-950 text-xs font-semibold uppercase tracking-wider shadow-lg shadow-stone-900/10 dark:shadow-stone-100/10 hover:bg-stone-800 dark:hover:bg-stone-200 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
           >
             Lihat Proyek
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
-            <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
           </Link>
 
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-stone-300 dark:border-stone-800 bg-stone-100/60 dark:bg-stone-900/40 text-stone-800 dark:text-stone-200 font-mono text-xs uppercase tracking-wider font-medium hover:bg-stone-200/80 dark:hover:bg-stone-800/60 hover:border-stone-400 dark:hover:border-stone-700 transition-all duration-300 backdrop-blur-xs"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-stone-300 dark:border-stone-800 bg-transparent text-stone-700 dark:text-stone-300 text-xs font-medium uppercase tracking-wider hover:bg-stone-100 dark:hover:bg-stone-800/60 hover:border-stone-400 dark:hover:border-stone-700 transition-all duration-300"
           >
             Hubungi Saya
           </Link>
         </motion.div>
 
-        {/* Highlights — single bordered strip */}
+        {/* Highlights — borderless inline text strip with ample top spacing */}
         <motion.div
           variants={fadeUp}
-          className="flex flex-wrap items-stretch divide-x divide-stone-200 dark:divide-stone-800 border border-stone-200 dark:border-stone-800 rounded-lg overflow-hidden text-[11px] font-mono text-stone-500 dark:text-stone-400 w-fit"
+          className="pt-5 flex flex-wrap items-center gap-y-2 gap-x-3.5 text-xs text-stone-500 dark:text-stone-400 font-normal"
         >
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5">
-            <GraduationCap className="w-3.5 h-3.5 text-stone-700 dark:text-stone-300 shrink-0" />
+          <div className="inline-flex items-center gap-1.5">
+            <GraduationCap className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400 shrink-0" />
             <span>{highlights.academic}</span>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5">
-            <Code2 className="w-3.5 h-3.5 text-stone-700 dark:text-stone-300 shrink-0" />
+          <span className="text-stone-300 dark:text-stone-700 select-none">•</span>
+
+          <div className="inline-flex items-center gap-1.5">
+            <Code2 className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400 shrink-0" />
             <span>{highlights.teaching}</span>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5">
-            <Award className="w-3.5 h-3.5 text-stone-700 dark:text-stone-300 shrink-0" />
+          <span className="text-stone-300 dark:text-stone-700 select-none">•</span>
+
+          <div className="inline-flex items-center gap-1.5">
+            <Award className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400 shrink-0" />
             <span>{highlights.achievement}</span>
           </div>
         </motion.div>
       </div>
 
-      {/* Right Column: Interactive 3D ASCII Avatar Canvas */}
+      {/* Right Column: Interactive 3D ASCII Avatar Canvas (Dual-sided 3D Card) */}
       <motion.div
         variants={fadeUp}
         className="lg:col-span-6 w-full flex items-center justify-center h-[340px] sm:h-[400px] lg:h-[450px]"
       >
-        <AsciiAvatarCanvas imageSrc="/hero-profile.webp" className="w-full h-full" />
+        <AsciiAvatarCanvas
+          frontImageSrc="/hero-profile.webp"
+          backImageSrc="/profile-bluejack.png"
+          className="w-full h-full"
+        />
       </motion.div>
     </motion.section>
   );
