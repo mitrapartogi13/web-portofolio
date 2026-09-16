@@ -5,9 +5,9 @@
 
 /* Custom Local Fonts */
 @font-face {
-  font-family: '2PeasGift';
-  src: url('/fonts/2peas-gift/2PeasGift-Jp8B.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'Mustasurma';
+  src: url('/fonts/mustasurma/Mustasurma.ttf') format('truetype');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -21,7 +21,10 @@
 }
 
 .font-2peas {
-  font-family: '2PeasGift', cursive, sans-serif;
+  font-family: 'Mustasurma', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-synthesis: none;
 }
 
 .font-fanzine {
@@ -64,10 +67,6 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-instrument-serif);
-}
-
-.font-2peas {
-  font-family: var(--font-2peas-gift), cursive, sans-serif;
 }
 
 body {
