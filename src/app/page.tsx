@@ -1,23 +1,15 @@
-import Hero from "@/components/home/Hero";
-import {
-  AboutSection,
-  AchievementsSection,
-  StackSection,
-  TeachingSection,
-  WorkSection,
-} from "@/components/home/sections";
-import ContactBand from "@/components/ContactBand";
+import Header from "@/components/Header";
+import SmoothScroll from "@/components/SmoothScroll";
+import Hero from "@/components/sections/Hero";
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <WorkSection />
-      <AboutSection />
-      <TeachingSection />
-      <AchievementsSection />
-      <StackSection />
-      <ContactBand index={6} />
+      <SmoothScroll />
+      <Header />
+      <main id="main">
+        <Hero />
+      </main>
     </>
   );
 }

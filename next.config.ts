@@ -2,12 +2,17 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  experimental: {
-    // Enables React's <ViewTransition> for route-change morphs.
-    viewTransition: true,
-  },
   images: {
     formats: ["image/avif", "image/webp"],
+  },
+  // Single-page layout: old routes point at their section.
+  async redirects() {
+    return [
+      { source: "/about", destination: "/#why", permanent: false },
+      { source: "/projects", destination: "/#portfolio", permanent: false },
+      { source: "/projects/:slug", destination: "/#portfolio", permanent: false },
+      { source: "/contact", destination: "/#contact", permanent: false },
+    ];
   },
 };
 
