@@ -69,15 +69,14 @@ export interface Stat {
 export const personalInfo = {
   name: "Mitra Partogi",
   role: "Informatics Programmer & Competitive Programmer",
-  // Rotated by the hero's RoleTicker on the home page.
+  // Shown as the role line under the hero name.
   roles: ["Software Engineer", "Data Science Enthusiast", "Competitive Programmer"],
   bio: "Mahasiswa Teknik Informatika ITS yang berfokus pada efisiensi algoritma, pemrograman kompetitif, dan eksplorasi sains data untuk memecahkan masalah kompleks.",
   longBio:
     "Saya adalah mahasiswa Teknik Informatika di Institut Teknologi Sepuluh Nopember (ITS) yang memiliki ketertarikan mendalam di bidang pemrograman kompetitif dan sains data. Selain aktif mengeksplorasi algoritma, saya mendedikasikan waktu saya sebagai Asisten Dosen untuk membantu rekan mahasiswa memahami dasar pemrograman, struktur data, hingga sistem operasi. Saya juga berpengalaman dalam merancang soal kompetisi nasional serta mengembangkan sistem kontrol robot otonom.",
   avatar: "/profile-picture.webp",
-  // Deck shown by the interactive ProfileCardStack on the About page.
-  // First item is the real profile photo; the rest are whitelisted Unsplash
-  // placeholders (see next.config.ts) — swap these for your own shots.
+  // Photos for the About page. Only local files ("/…") are rendered; the
+  // Unsplash entries are placeholders — replace them with your own photos.
   gallery: [
     "/profile-picture.webp",
     "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800",

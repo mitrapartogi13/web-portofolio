@@ -8,11 +8,6 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
-    // Temporary: old ProjectCard/ProfileCardStack still render Unsplash
-    // placeholders. Removed once those components are replaced.
-    remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
-    ],
   },
 };
 
