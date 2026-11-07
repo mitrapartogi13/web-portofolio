@@ -70,8 +70,8 @@ export const site = {
   },
 
   services: {
-    title: ["Engineering That", "Holds Up Under Load"],
-    text: personalInfo.bio,
+    title: ["Engineering That", "Survives Real Load"],
+    text: "I focus on algorithmic efficiency, competitive programming and data science, and on building systems that stay correct when inputs grow, sensors get noisy and deadlines get close.",
     cards: [
       { title: "Algorithms & CP", items: ["C / C++", "Graph Theory", "Dynamic Programming", "Problem Setting"] },
       { title: "Systems", items: ["Operating Systems", "Linux / Ubuntu", "C Programming", "Concurrency"] },
@@ -82,7 +82,7 @@ export const site = {
   },
 
   awards: {
-    title: ["Awards and Academic", "Recognition"],
+    title: ["Awards and Contest", "Recognition"],
     items: achievements.map((a, i) => ({
       title: a.title.split(" - ")[0],
       meta: `${a.year} - ${(a.title.split(" - ")[1] ?? a.organizer).toUpperCase()}`,
@@ -113,7 +113,7 @@ export const site = {
     items: [
       {
         q: "Who is Mitra Partogi and what does he work on?",
-        a: personalInfo.longBio,
+        a: "I study Informatics Engineering at ITS, focused on competitive programming and data science. I work as a teaching assistant for programming fundamentals, data structures and operating systems, set problems for national contests, and have built control software for an autonomous robot boat.",
       },
       {
         q: "What is your strongest technical area?",
