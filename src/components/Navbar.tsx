@@ -49,18 +49,15 @@ export default function Navbar() {
   return (
     <header className="header-scroll sticky top-0 z-40 border-b border-transparent bg-paper">
       <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-6">
-        <Link
-          href="/"
-          aria-label="Mitra Partogi — beranda"
-          className="group flex items-center gap-3"
-        >
+        <Link href="/" className="group flex min-h-11 items-center gap-3">
           <span
             aria-hidden
             className="grid size-8 place-items-center bg-ink font-mono text-[0.75rem] font-medium text-paper transition-colors duration-[var(--dur-1)] group-hover:bg-signal-field group-hover:text-on-signal"
           >
             MP
           </span>
-          <span className="hidden text-sm font-medium sm:inline">Mitra Partogi</span>
+          {/* Always the accessible name; visible from sm up. */}
+          <span className="sr-only text-sm font-medium sm:not-sr-only">Mitra Partogi</span>
         </Link>
 
         <nav aria-label="Utama" className="hidden md:block">
