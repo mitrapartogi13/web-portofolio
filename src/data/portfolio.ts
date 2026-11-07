@@ -1,14 +1,34 @@
 export interface Project {
   id: string;
+  /** URL segment for /projects/[slug]. */
+  slug: string;
   title: string;
+  /** Short name for indexes and navigation. */
+  shortTitle: string;
   category: string;
   description: string;
   longDescription: string;
   tags: string[];
+  /**
+   * Placeholder stock photo (Unsplash). Kept for reference but not rendered:
+   * it does not show the actual project. Replace with a real screenshot or
+   * diagram, then render it in the case study.
+   */
   image: string;
   demoUrl?: string;
   githubUrl?: string;
   featured: boolean;
+  year?: string;
+  role?: string;
+  /** Case-study sections. Every sentence is derived from longDescription. */
+  problem?: string;
+  constraints?: string[];
+  approach?: string[];
+  outcome?: string;
+  /** One headline number, if the project has a real one. */
+  metric?: { value: string; label: string };
+  /** The project's process, drawn by PipelineFigure. Last step = outcome. */
+  pipeline: string[];
 }
 
 export interface Experience {
@@ -35,6 +55,8 @@ export interface Achievement {
 export interface Skill {
   name: string;
   category: "languages" | "core" | "tools";
+  /** ids of projects / teaching / achievements where this skill was used. */
+  evidence?: string[];
 }
 
 export interface Stat {
@@ -67,7 +89,7 @@ export const personalInfo = {
   resumeUrl: "#",
   socials: {
     github: "https://github.com/mitrapartogi13",
-    linkedin: "http://www.linkedin.com/in/mitra-partogi",
+    linkedin: "https://www.linkedin.com/in/mitra-partogi",
     instagram: "https://instagram.com",
     twitter: "https://twitter.com",
   },
@@ -173,6 +195,30 @@ export const achievements: Achievement[] = [
 export const projects: Project[] = [
   {
     id: "p-1",
+    slug: "schematics-npc-2025",
+    shortTitle: "Schematics NPC 2025",
+    year: "2025",
+    role: "Problem setter, tim inti",
+    problem:
+      "Kompetisi pemrograman tingkat nasional membutuhkan soal yang benar-benar menguji kemampuan problem-solving peserta, dengan tingkat kesulitan yang seimbang.",
+    constraints: [
+      "Setiap soal wajib punya solusi resmi (golden solution) sebagai acuan penilaian.",
+      "Test case harus valid dan cukup kuat untuk membedakan solusi benar dari yang keliru.",
+      "Tingkat kesulitan antarsoal harus seimbang.",
+    ],
+    approach: [
+      "Menyusun deskripsi masalah yang jelas dan tidak ambigu.",
+      "Menulis golden solution untuk setiap soal.",
+      "Membuat dan memvalidasi test case di Polygon.",
+    ],
+    outcome:
+      "Soal, solusi resmi, dan test case untuk kompetisi Competitive Programming berskala nasional.",
+    pipeline: [
+      "Deskripsi masalah",
+      "Golden solution",
+      "Generator test case",
+      "Validasi tingkat kesulitan",
+    ],
     title: "Schematics NPC 2025 - Problem Setter Core",
     category: "Competitive Programming / Software Engineering",
     description:
@@ -188,6 +234,27 @@ export const projects: Project[] = [
   },
   {
     id: "p-2",
+    slug: "roboboat-barunastra",
+    shortTitle: "Roboboat Barunastra",
+    role: "Programmer magang, tim Barunastra ITS",
+    problem:
+      "Kapal tanpa awak harus bergerak secara mandiri: mengenali lingkungannya lalu menentukan arah tanpa kendali manusia.",
+    constraints: [
+      "Data sensor harus diolah secara real-time.",
+      "Sistem visual dan kontrol navigasi harus bekerja sebagai satu kesatuan.",
+    ],
+    approach: [
+      "Mengembangkan sistem visual otonom untuk membaca lingkungan kapal.",
+      "Memprogram kontrol navigasi berdasarkan data sensor.",
+    ],
+    outcome:
+      "Sistem visual dan kontrol yang mendukung pergerakan kapal secara otonom.",
+    pipeline: [
+      "Sensor & kamera",
+      "Pengolahan visual",
+      "Kontrol navigasi",
+      "Gerak otonom",
+    ],
     title: "Autonomous Roboboat - Control & Vision System",
     category: "Robotics / Embedded Systems",
     description:
@@ -203,6 +270,25 @@ export const projects: Project[] = [
   },
   {
     id: "p-3",
+    slug: "dhelibels",
+    shortTitle: "DHELIBELS",
+    role: "Pengorganisir gerakan",
+    problem:
+      "Menekan konsumsi listrik operasional sekolah lewat gerakan bersama, bukan sekadar imbauan.",
+    approach: [
+      "Langkah-langkah penghematan taktis.",
+      "Kolaborasi tim.",
+      "Edukasi massal tentang konservasi energi.",
+    ],
+    outcome:
+      "Penghematan listrik setara sekitar Rp15 juta dalam kurun waktu 6 bulan.",
+    metric: { value: "±Rp15 jt", label: "dihemat dalam 6 bulan" },
+    pipeline: [
+      "Langkah penghematan",
+      "Kolaborasi tim",
+      "Edukasi massal",
+      "±Rp15 jt / 6 bulan",
+    ],
     title: "DHELIBELS Energy Efficiency Initiative",
     category: "Sustainability / Management",
     description:
@@ -227,14 +313,70 @@ export const stats: Stat[] = [
 ];
 
 export const skills: Skill[] = [
-  { name: "C / C++", category: "languages" },
-  { name: "Python", category: "languages" },
+  { name: "C / C++", category: "languages", evidence: ["p-1", "p-2", "ta-1", "ta-3"] },
+  { name: "Python", category: "languages", evidence: ["p-2"] },
   { name: "HTML", category: "languages" },
-  { name: "Algoritma & Struktur Data", category: "core" },
-  { name: "Competitive Programming", category: "core" },
-  { name: "Logika Matematika", category: "core" },
-  { name: "Sistem Kontrol Robot Otonom", category: "core" },
+  { name: "Algoritma & Struktur Data", category: "core", evidence: ["ta-1", "p-1"] },
+  { name: "Competitive Programming", category: "core", evidence: ["p-1", "ach-1"] },
+  { name: "Logika Matematika", category: "core", evidence: ["ach-2"] },
+  { name: "Sistem Kontrol Robot Otonom", category: "core", evidence: ["p-2"] },
   { name: "Linux / Ubuntu", category: "tools" },
   { name: "Microsoft Office", category: "tools" },
   { name: "Google Spreadsheets", category: "tools" },
 ];
+
+// ------------------------------------------------------------------
+// Derived helpers
+// ------------------------------------------------------------------
+
+export const skillGroups = [
+  { key: "languages", label: "Bahasa" },
+  { key: "core", label: "Kompetensi inti" },
+  { key: "tools", label: "Tools & platform" },
+] as const;
+
+/**
+ * Social links that point at a real profile. Bare domains such as
+ * "https://instagram.com" are placeholders and are not shown.
+ */
+export function publicSocials() {
+  return Object.entries(personalInfo.socials)
+    .filter(([, url]) => {
+      try {
+        return new URL(url).pathname.replace(/\/$/, "") !== "";
+      } catch {
+        return false;
+      }
+    })
+    .map(([key, url]) => ({
+      key,
+      label: key === "github" ? "GitHub" : key === "linkedin" ? "LinkedIn" : key,
+      url,
+    }));
+}
+
+export function getProject(slug: string) {
+  return projects.find((p) => p.slug === slug);
+}
+
+/** True when a link field holds a real URL rather than the "#" placeholder. */
+export function hasLink(url?: string): url is string {
+  return Boolean(url && url !== "#");
+}
+
+/** Resolve an evidence id to a label and an internal link. */
+export function resolveEvidence(id: string) {
+  const project = projects.find((p) => p.id === id);
+  if (project) return { label: project.shortTitle, href: `/projects/${project.slug}` };
+  const course = teachingExperiences.find((t) => t.id === id);
+  if (course) return { label: `Asisten ${course.code}`, href: `/about#mengajar` };
+  const ach = achievements.find((a) => a.id === id);
+  if (ach) return { label: ach.title.split(" - ").pop() ?? ach.title, href: `/about#prestasi` };
+  return null;
+}
+
+/** Totals for the teaching section, derived from the data. */
+export const teachingSummary = {
+  courses: teachingExperiences.length,
+  sks: teachingExperiences.reduce((sum, t) => sum + t.sks, 0),
+};

@@ -1,222 +1,155 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
-import {
-  motion,
-  useScroll,
-  useMotionValueEvent,
-  useReducedMotion,
-} from "framer-motion";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
-import { EASE } from "@/lib/motion";
-import { ICON_BUTTON } from "@/lib/ui";
+import { cn, pad } from "@/lib/utils";
+import { navItems } from "@/lib/nav";
 
-const navItems = [
-  { path: "/", label: "Home" },
-  { path: "/about", label: "About" },
-  { path: "/projects", label: "Projects" },
-  { path: "/contact", label: "Contact" },
-];
+function isActive(pathname: string, href: string) {
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const { scrollY } = useScroll();
-  const reduceMotion = useReducedMotion();
-
-  const headerRef = useRef<HTMLElement | null>(null);
-  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
-  const drawerRef = useRef<HTMLElement | null>(null);
-
-  // Hide on scroll down, reveal on scroll up — never while the menu is open,
-  // while the header holds keyboard focus, or when motion is reduced.
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (isOpen || reduceMotion) {
-      setHidden(false);
-      return;
-    }
-    if (headerRef.current?.contains(document.activeElement)) {
-      setHidden(false);
-      return;
-    }
-    const previous = scrollY.getPrevious() ?? 0;
-    setHidden(latest > previous && latest > 140);
-  });
-
+  const [open, setOpen] = useState(false);
   const [prevPathname, setPrevPathname] = useState(pathname);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+
+  // Close the sheet whenever the route changes.
   if (prevPathname !== pathname) {
     setPrevPathname(pathname);
-    setIsOpen(false);
+    setOpen(false);
   }
 
-  // While the drawer is open: lock scroll, close on Escape or outside click,
-  // and move focus into the menu so keyboard users land where they expect.
+  // While open: lock scroll, Esc closes, focus moves into the sheet.
   useEffect(() => {
-    if (!isOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
+    if (!open) return;
+    const button = buttonRef.current;
+    const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    sheetRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
 
-    const close = () => {
-      setIsOpen(false);
-      menuButtonRef.current?.focus();
-    };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") close();
-    };
-
-    const handlePointerDown = (event: PointerEvent) => {
-      const target = event.target as Node;
-      if (
-        drawerRef.current?.contains(target) ||
-        menuButtonRef.current?.contains(target)
-      ) {
-        return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        button?.focus();
       }
-      setIsOpen(false);
     };
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("pointerdown", handlePointerDown);
-
-    drawerRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
-
+    document.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("pointerdown", handlePointerDown);
+      document.body.style.overflow = previous;
+      document.removeEventListener("keydown", onKey);
     };
-  }, [isOpen]);
+  }, [open]);
 
   return (
-    <motion.header
-      ref={headerRef}
-      animate={{ y: hidden ? "-120%" : "0%" }}
-      transition={{ duration: 0.35, ease: EASE }}
-      className="pointer-events-none fixed left-0 top-0 z-50 w-full px-6 py-4 md:px-12 md:py-6"
-    >
-      <a
-        href="#main-content"
-        className="pointer-events-auto sr-only focus:not-sr-only focus:absolute focus:left-6 focus:top-4 focus:z-10 focus:rounded-full focus:border focus:border-stone-200 focus:bg-stone-50 focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-wider focus:text-stone-900 dark:focus:border-stone-800 dark:focus:bg-stone-900 dark:focus:text-stone-50"
-      >
-        Skip to content
-      </a>
-
-      <div className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-between">
-        {/* Logo */}
+    <header className="header-scroll sticky top-0 z-40 border-b border-transparent bg-paper">
+      <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-6">
         <Link
           href="/"
-          aria-label="Mitra Partogi — home"
-          className="block shrink-0 rounded-full transition-transform duration-300 hover:scale-105 active:scale-95"
+          aria-label="Mitra Partogi — beranda"
+          className="group flex items-center gap-3"
         >
-          <Image
-            src="/poly-art-profile.webp"
-            alt=""
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full object-cover"
-            priority
-          />
+          <span
+            aria-hidden
+            className="grid size-8 place-items-center bg-ink font-mono text-[0.75rem] font-medium text-paper transition-colors duration-[var(--dur-1)] group-hover:bg-signal-field group-hover:text-on-signal"
+          >
+            MP
+          </span>
+          <span className="hidden text-sm font-medium sm:inline">Mitra Partogi</span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav
-          aria-label="Primary"
-          className="hidden items-center gap-1 rounded-full border border-stone-200/50 bg-stone-100/80 px-2.5 py-1.5 shadow-xs backdrop-blur-md md:flex dark:border-stone-800/40 dark:bg-stone-900/50"
-        >
-          {navItems.map((item) => {
-            const isActive = pathname === item.path;
-            return (
-              <Link
-                key={item.path}
-                href={item.path}
-                aria-current={isActive ? "page" : undefined}
-                className={`relative rounded-full px-4 py-2 font-mono text-xs uppercase tracking-wider transition-colors duration-300 ${
-                  isActive
-                    ? "font-medium text-stone-950 dark:text-stone-50"
-                    : "text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200"
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="activeNavIndicator"
-                    className="absolute inset-0 -z-10 rounded-full border border-stone-200/30 bg-white shadow-xs dark:border-stone-700/20 dark:bg-stone-800"
-                    transition={{
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  />
-                )}
-                {item.label}
-              </Link>
-            );
-          })}
+        <nav aria-label="Utama" className="hidden md:block">
+          <ul className="flex items-center gap-1">
+            {navItems.map((item, i) => {
+              const active = isActive(pathname, item.href);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "flex h-11 items-center gap-2 px-3 text-sm transition-colors duration-[var(--dur-1)]",
+                      active ? "text-ink" : "text-ink-2 hover:text-ink",
+                    )}
+                  >
+                    <span aria-hidden className="text-label text-ink-3">
+                      {pad(i)}
+                    </span>
+                    <span
+                      className={cn(
+                        "underline-offset-[0.35em]",
+                        active && "underline decoration-signal decoration-2",
+                      )}
+                    >
+                      {item.label}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </nav>
 
-        {/* Desktop Controls */}
-        <div className="hidden items-center gap-4 md:flex">
-          <ThemeToggle />
-        </div>
-
-        {/* Mobile controls */}
-        <div className="flex items-center gap-3 md:hidden">
+        <div className="flex items-center gap-1">
           <ThemeToggle />
           <button
-            ref={menuButtonRef}
-            onClick={() => setIsOpen(!isOpen)}
-            className={ICON_BUTTON}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isOpen}
+            ref={buttonRef}
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
             aria-controls="mobile-menu"
+            aria-label={open ? "Tutup menu" : "Buka menu"}
+            className="grid size-11 place-items-center text-ink md:hidden"
           >
-            {isOpen ? (
-              <X className="h-4.5 w-4.5" />
+            {open ? (
+              <X aria-hidden className="size-5" strokeWidth={1.75} />
             ) : (
-              <Menu className="h-4.5 w-4.5" />
+              <Menu aria-hidden className="size-5" strokeWidth={1.75} />
             )}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer — stays mounted and is made `inert` when closed, so its
-          links can never be tabbed to or intercept taps while invisible. */}
-      <nav
-        ref={drawerRef}
+      {/* Full-screen sheet on mobile. Kept mounted but inert when closed so
+          it can never be tabbed into or intercept taps. */}
+      <div
+        ref={sheetRef}
         id="mobile-menu"
-        aria-label="Primary"
-        inert={!isOpen}
-        className={`absolute left-6 right-6 top-full mt-2 flex flex-col gap-3 rounded-3xl border border-stone-200 bg-stone-50/95 p-6 shadow-lg backdrop-blur-lg transition duration-200 ease-out motion-reduce:transition-none md:hidden dark:border-stone-800 dark:bg-stone-950/95 ${
-          isOpen
-            ? "pointer-events-auto translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-2 opacity-0"
-        }`}
+        inert={!open}
+        className={cn(
+          "fixed inset-x-0 top-[var(--header-h)] bottom-0 bg-paper transition-opacity duration-[var(--dur-2)] ease-in-out md:hidden",
+          open ? "opacity-100" : "pointer-events-none opacity-0",
+        )}
       >
-        {navItems.map((item) => {
-          const isActive = pathname === item.path;
-          return (
-            <Link
-              key={item.path}
-              href={item.path}
-              aria-current={isActive ? "page" : undefined}
-              onClick={() => setIsOpen(false)}
-              className={`rounded-xl px-4 py-3 font-mono text-sm uppercase tracking-wider transition-all ${
-                isActive
-                  ? "bg-stone-100 font-bold text-stone-950 dark:bg-stone-900 dark:text-stone-50"
-                  : "text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-900/50"
-              }`}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
-      </nav>
-    </motion.header>
+        <nav aria-label="Utama (seluler)" className="container-page border-t border-rule pt-6">
+          <ul>
+            {navItems.map((item, i) => {
+              const active = isActive(pathname, item.href);
+              return (
+                <li key={item.href} className="border-b border-rule">
+                  <Link
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className="flex items-baseline gap-4 py-5"
+                  >
+                    <span aria-hidden className="text-label text-ink-3">
+                      {pad(i)}
+                    </span>
+                    <span className={cn("text-h2", active && "text-signal")}>
+                      {item.label}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+    </header>
   );
 }
