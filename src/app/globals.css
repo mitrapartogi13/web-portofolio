@@ -1,190 +1,328 @@
 @import "tailwindcss";
 
-/* Enable manual class-based dark mode in Tailwind v4 */
+/* Theme is a class on <html>, set before paint by the inline script in layout.tsx. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Custom Local Fonts */
-@font-face {
-  font-family: 'Mustasurma';
-  src: url('/fonts/mustasurma/Mustasurma.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Fanzine';
-  src: url('/fonts/fanzine/Fanzine-og8V.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-.font-2peas {
-  font-family: 'Mustasurma', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-synthesis: none;
-}
-
-.font-fanzine {
-  font-family: 'Fanzine', display, sans-serif;
-}
-
-
+/* ------------------------------------------------------------------ */
+/* Design tokens — see DESIGN.md §4. Every text pair is WCAG AA.      */
+/* ------------------------------------------------------------------ */
 :root {
-  /* Light mode palette */
-  --background: #FAF9F6; /* Ivory background */
-  --foreground: #1C1917; /* Charcoal dark text */
-  --accent-color: #A16207; /* Deep gold accent */
+  --paper: #f3f1ea;
+  --paper-2: #e8e5da;
+  --ink: #111214;
+  --ink-2: #45474d;
+  --ink-3: #5e6066;
+  --rule: #c9c5b8;
+  --signal: #2b2fe0;
+  --signal-field: #2b2fe0;
+  --signal-field-2: #2226b8;
+  --on-signal: #f3f1ea;
+  --on-signal-2: #d3d4fa;
+  --ok: #08703a;
 
-  --card-bg: #F4F3EE;
-  --card-border: rgba(28, 25, 23, 0.08);
-  --border-muted: rgba(28, 25, 23, 0.06);
-  --sky-500: #0ea5e9;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 120ms;
+  --dur-2: 240ms;
+  --dur-3: 480ms;
+  --dur-4: 900ms;
+
+  --page-x: 1rem;
+  --gutter: clamp(1rem, 2vw, 2rem);
+  --section-y: clamp(6rem, 4rem + 8vw, 12rem);
+  --header-h: 3.5rem;
+
+  color-scheme: light;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-x: 2rem;
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --page-x: 3rem;
+    --header-h: 4rem;
+  }
+}
+@media (min-width: 1920px) {
+  :root {
+    --page-x: 4rem;
+  }
 }
 
 :root.dark {
-  /* Dark mode palette */
-  --background: #0B0A09; /* Deep Onyx background */
-  --foreground: #F5F5F4; /* Warm white text */
-  --accent-color: #D4AF37; /* Classic gold accent */
+  --paper: #0d0e10;
+  --paper-2: #18191c;
+  --ink: #eceae3;
+  --ink-2: #b3b1aa;
+  --ink-3: #8e8d88;
+  --rule: #2a2b2f;
+  --signal: #9aa0ff;
+  --ok: #4cc27e;
+  color-scheme: dark;
+}
 
-  --card-bg: #121110;
-  --card-border: rgba(245, 245, 244, 0.08);
-  --border-muted: rgba(245, 245, 244, 0.06);
+@theme {
+  /* Only the project tokens exist — no default palette to drift into. */
+  --color-*: initial;
+  --font-*: initial;
+
+  --breakpoint-3xl: 120rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent-color);
-  
-  --color-card: var(--card-bg);
-  --color-card-border: var(--card-border);
-  --color-border-muted: var(--border-muted);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-signal: var(--signal);
+  --color-signal-field: var(--signal-field);
+  --color-signal-field-2: var(--signal-field-2);
+  --color-on-signal: var(--on-signal);
+  --color-on-signal-2: var(--on-signal-2);
+  --color-ok: var(--ok);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-instrument-serif);
+  --font-sans: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-martian), ui-monospace, "SFMono-Regular", monospace;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* ------------------------------------------------------------------ */
+/* Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 1.5rem);
+  }
+
+  body {
+    background: var(--paper);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-variation-settings: "wdth" 100;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--signal-field);
+    color: var(--on-signal);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus, var(--signal));
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
 }
 
-/* Glassmorphism utility */
-.glass {
-  background: rgba(250, 249, 246, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* ------------------------------------------------------------------ */
+/* Type scale (DESIGN.md §4.3)                                        */
+/* ------------------------------------------------------------------ */
+@utility text-display {
+  font-size: clamp(3.5rem, 1.5rem + 10vw, 11rem);
+  font-weight: 360;
+  font-variation-settings: "wdth" 112;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
 }
 
-.dark .glass {
-  background: rgba(11, 10, 9, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+@utility text-h1 {
+  font-size: clamp(2.5rem, 1.5rem + 4.5vw, 5.5rem);
+  font-weight: 420;
+  font-variation-settings: "wdth" 105;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
 }
 
-/* Grainy noise backdrop overlay */
-.noise-bg {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  content: "";
-  opacity: 0.035;
-  pointer-events: none;
-  z-index: 9998;
-  /* Optimized fractal noise: numOctaves reduced to 1 for high frame-rate performance */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+@utility text-h2 {
+  font-size: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+  font-weight: 480;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
-.dark .noise-bg {
-  opacity: 0.045;
+@utility text-h3 {
+  font-size: 1.375rem;
+  font-weight: 560;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
-/* View transitions layout */
+@utility text-body-lg {
+  font-size: 1.1875rem;
+  line-height: 1.55;
+}
+
+@utility text-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 450;
+  font-variation-settings: "wdth" 87.5;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+@utility text-data {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout                                                             */
+/* ------------------------------------------------------------------ */
+@utility container-page {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: var(--page-x);
+}
+
+@utility grid-page {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gutter);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+@utility measure {
+  max-width: 68ch;
+}
+
+/* Signal field: full-bleed blue band. Focus rings flip to paper so they
+   stay visible on the blue. */
+@utility field {
+  --focus: var(--on-signal);
+  background: var(--signal-field);
+  color: var(--on-signal);
+
+  & ::selection {
+    background: var(--on-signal);
+    color: var(--signal-field);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion (DESIGN.md §4.5)                                            */
+/* ------------------------------------------------------------------ */
+
+/* Scroll-linked reveal: pure CSS view timeline, no JS. Browsers without
+   support (or with reduced motion) simply show the content. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes draw-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+
+    .draw-x {
+      transform-origin: left center;
+      animation: draw-x linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+}
+
+/* Header gains its hairline once the page scrolls. */
+@keyframes header-rule {
+  to {
+    border-bottom-color: var(--rule);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .header-scroll {
+    animation: header-rule linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 4rem;
+  }
+}
+
+@supports not (animation-timeline: scroll()) {
+  .header-scroll {
+    border-bottom-color: var(--rule);
+  }
+}
+
+/* Route transitions (React <ViewTransition>). Root crossfades; project
+   titles morph between the index and the case study. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+  animation-duration: var(--dur-2);
+  animation-timing-function: var(--ease-in-out);
 }
 
-::view-transition-old(root) {
-  z-index: 1;
-}
-
-::view-transition-new(root) {
-  z-index: 9999;
-}
-
-.light::view-transition-old(root) {
-  z-index: 9999;
-}
-
-.light::view-transition-new(root) {
-  z-index: 1;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--card-border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-color);
-}
-
-/* Visible keyboard focus, site-wide */
-:focus-visible {
-  outline: 2px solid var(--accent-color);
-  outline-offset: 3px;
-}
-
-/* Editorial animated underline for inline links */
-.link-underline {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 0% 1px;
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.link-underline:hover {
-  background-size: 100% 1px;
-}
-
-/* Skills marquee — the only looping animation on the site */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.marquee-track {
-  animation: marquee 36s linear infinite;
+::view-transition-group(.morph) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease-out);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
