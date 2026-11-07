@@ -1,10 +1,9 @@
-"use client";
-
 import type { CSSProperties, ElementType, ReactNode } from "react";
-import { useInView } from "@/lib/useInView";
-import { cn } from "@/lib/utils";
 
-/** Adds `.in` once visible; pair with the `.rise` / `.draw` CSS classes. */
+/**
+ * Marks an element for InViewObserver, which adds `.in` once visible.
+ * Pair with the `.rise`, `.line-up` or `.draw` CSS classes.
+ */
 export default function Reveal({
   as: Tag = "div",
   className,
@@ -19,10 +18,9 @@ export default function Reveal({
   rise?: string;
   children?: ReactNode;
 }) {
-  const [ref, inView] = useInView<HTMLElement>();
   const style = { "--d": `${delay}s`, ...(rise ? { "--rise": rise } : {}) } as CSSProperties;
   return (
-    <Tag ref={ref} className={cn(className, inView && "in")} style={style}>
+    <Tag data-reveal="" className={className} style={style}>
       {children}
     </Tag>
   );

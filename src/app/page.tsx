@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import InViewObserver from "@/components/InViewObserver";
 import SmoothScroll from "@/components/SmoothScroll";
 import Awards from "@/components/sections/Awards";
 import Faq from "@/components/sections/Faq";
@@ -26,6 +27,7 @@ export default function Home() {
         <Faq />
       </main>
       <Footer />
+      <InViewObserver />
     </>
   );
 }

@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [55, 75],
   },
   // Single-page layout: old routes point at their section.
   async redirects() {

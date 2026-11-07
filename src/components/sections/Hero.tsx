@@ -76,7 +76,8 @@ export default function Hero() {
             alt=""
             fill
             priority
-            sizes="(min-width: 1025px) 75vw, 100vw"
+            quality={55}
+            sizes="(min-width: 1025px) 75vw, (min-width: 768px) 60vw, 100vw"
             className="object-contain brightness-[0.7] contrast-[1.2] [mask-image:radial-gradient(ellipse_55%_48%_at_55%_48%,black_45%,transparent_100%)] md:[mask-image:radial-gradient(ellipse_50%_56%_at_53%_40%,black_45%,transparent_100%)] lg:[mask-image:radial-gradient(ellipse_26%_56%_at_53%_40%,black_45%,transparent_100%)]"
           />
         </div>

@@ -1,15 +1,11 @@
-"use client";
-
-import { useEffect, useState, type ElementType } from "react";
-import { useInView } from "@/lib/useInView";
-import { cn } from "@/lib/utils";
+import type { CSSProperties, ElementType } from "react";
 
 interface SplitTextProps {
   /** One string per visual line; lines break explicitly like the reference. */
   lines: readonly string[];
   as?: ElementType;
   className?: string;
-  /** Reveal on mount (hero) instead of on scroll into view. */
+  /** Reveal on load (hero) instead of on scroll into view. */
   onMount?: boolean;
   delay?: number;
   stagger?: number;
@@ -17,8 +13,8 @@ interface SplitTextProps {
 
 /**
  * Letter-by-letter rise, each letter clipped by its own mask (the reference
- * pads the mask by 0.04em so descenders and side bearings are not cut).
- * Screen readers get the plain sentence via aria-label.
+ * pads the mask by 0.04em so side bearings are not cut). Server-rendered;
+ * InViewObserver adds `split-in`. Screen readers get the plain sentence.
  */
 export default function SplitText({
   lines,
@@ -28,20 +24,10 @@ export default function SplitText({
   delay = 0,
   stagger = 0.022,
 }: SplitTextProps) {
-  const [ref, inView] = useInView<HTMLElement>();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    if (!onMount) return;
-    const id = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(id);
-  }, [onMount]);
-
-  const shown = onMount ? mounted : inView;
   let i = 0;
 
   return (
-    <Tag ref={ref} aria-label={lines.join(" ")} className={cn(shown && "split-in", className)}>
+    <Tag data-split={onMount ? "mount" : ""} aria-label={lines.join(" ")} className={className}>
       {lines.map((line, li) => (
         <span key={li} aria-hidden className="block">
           {line.split(" ").map((word, wi, words) => (
@@ -51,9 +37,9 @@ export default function SplitText({
                 return (
                   <span
                     key={`${ch}-${i}`}
-                    className="relative inline-block overflow-clip px-[0.04em] -mx-[0.04em] align-bottom"
+                    className="relative -mx-[0.04em] inline-block overflow-clip px-[0.04em] align-bottom"
                   >
-                    <span className="split-letter" style={{ ["--d" as string]: `${d}s` }}>
+                    <span className="split-letter" style={{ "--d": `${d}s` } as CSSProperties}>
                       {ch}
                     </span>
                   </span>

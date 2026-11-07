@@ -52,7 +52,7 @@ export default function Awards() {
                 <Reveal as="h3" delay={i * 0.05} className="line-up overflow-clip text-[5.5vw] leading-[1.5] md:text-[3.4vw] lg:text-[1.8vw]">
                   <span>{item.title}</span>
                 </Reveal>
-                <Reveal as="p" delay={i * 0.05 + 0.08} className="line-up mt-3 overflow-clip text-[3.6vw] leading-[1.5] tracking-[0.025em] text-white/30 md:text-[2.3vw] lg:text-[1.25vw]">
+                <Reveal as="p" delay={i * 0.05 + 0.08} className="line-up mt-3 overflow-clip text-[3.6vw] leading-[1.5] tracking-[0.025em] text-white/50 md:text-[2.3vw] lg:text-[1.25vw]">
                   <span>{item.meta}</span>
                 </Reveal>
               </div>

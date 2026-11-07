@@ -1,7 +1,9 @@
 # Portfolio — Mitra Partogi
 
-Personal portfolio built with Next.js 16 (App Router), React 19, Tailwind CSS v4, TypeScript (strict).
-Design direction "Problem Set": see `DESIGN.md` (local file, git-ignored).
+Single-page portfolio built with Next.js 16 (App Router), React 19, Tailwind CSS v4 and TypeScript.
+The layout is a slice of the Elena Voss portfolio template by Hyperiux
+(<https://elena-voss-portfolio-template-v3.21st.app/>): structure, sizes, colours and motion were
+measured from the reference; copy, photos and project images are our own.
 
 ## Development
 
@@ -14,23 +16,25 @@ pnpm build && pnpm start
 
 ## Editing content
 
-All content lives in `src/data/portfolio.ts`; pages are generated from it.
+- **All copy:** `src/data/site.ts` (built from `src/data/portfolio.ts`). Items marked `DUMMY` or
+  `PLACEHOLDER` must be replaced before publishing (testimonials, the 4th project, Instagram/X URLs).
+- **Hero photo:** `public/hero-portrait.webp` (crop of `profile-picture.webp`). A high-resolution
+  cut-out portrait gives the closest match to the reference.
+- **Project shots:** `public/work/*.webp` (1920×1080). They were rendered from HTML mocks; replace
+  them with real screenshots at the same size.
 
-- **Projects:** each entry gets a case study at `/projects/[slug]`. Fill `problem`, `constraints`,
-  `approach`, `outcome`, `metric` and `pipeline` (the steps drawn in the figure). Empty sections are
-  not rendered. `demoUrl` / `githubUrl` set to `"#"` show "Belum dipublikasikan".
-- **Skills:** `evidence` lists ids of projects (`p-*`), teaching (`ta-*`) or achievements (`ach-*`)
-  where the skill was used; they render as links in the Stack section.
-- **Socials:** a bare domain (e.g. `https://instagram.com`) is treated as a placeholder and hidden.
-- **Photos:** only local files (`/…`) in `personalInfo.gallery` are rendered on /about.
+## How it is built
 
-## Structure
+- Three fluid canvases like the reference, sizes in `vw`: mobile `< 768px` (390 design),
+  tablet `768–1024px` (768 design), desktop `≥ 1025px` (1440 design; custom `lg` breakpoint).
+- `lenis` for smooth scroll and snap (portfolio cards). One rAF loop (`src/lib/scroll.ts`) drives
+  every scroll-linked effect by writing styles directly — no React state per frame.
+- Headings and reveals are server components; a single `InViewObserver` adds the reveal classes.
+- `prefers-reduced-motion`: no Lenis, no wall drift, no scroll scaling, text shown immediately.
 
 ```
-src/app/                  routes: /, /projects, /projects/[slug], /about, /contact, 404
-src/components/ui/        design-system primitives (SectionHead, ButtonLink, Tag, Figure, PipelineFigure)
-src/components/home/      hero + home sections (server) and WorkIndex (client)
-src/components/hero/      Search Field canvas (client, lazy-loaded)
-src/components/about/     ASCII portrait (client)
-src/app/globals.css       tokens, type scale, grid, motion
+src/components/sections/   Hero, Portfolio, WhyWorkWithMe, Services, Awards, Trusted,
+                           Testimonials, Faq, Footer
+src/components/            Header, CtaButton, Logo, SplitText, Reveal, SmoothScroll, InViewObserver
+src/lib/                   scroll engine, Lenis bridge, utils
 ```

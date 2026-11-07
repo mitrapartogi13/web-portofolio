@@ -27,7 +27,7 @@ export default function Header() {
       id="header"
       className="fixed inset-x-0 top-0 z-[99] flex items-center justify-between px-[5vw] py-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:px-[5vw] md:py-[3vw] lg:px-[4vw] lg:py-[1.5vw]"
     >
-      <a href="#hero" aria-label={`${site.name.first} ${site.name.last}, back to top`}>
+      <a href="#hero">
         <Logo />
       </a>
       <CtaButton label={site.cta} />
