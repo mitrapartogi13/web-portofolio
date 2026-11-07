@@ -274,7 +274,7 @@ export const projects: Project[] = [
     shortTitle: "DHELIBELS",
     role: "Pengorganisir gerakan",
     problem:
-      "Menekan konsumsi listrik operasional sekolah lewat gerakan bersama, bukan sekadar imbauan.",
+      "Menekan konsumsi listrik operasional sekolah lewat gerakan konservasi energi yang terintegrasi.",
     approach: [
       "Langkah-langkah penghematan taktis.",
       "Kolaborasi tim.",

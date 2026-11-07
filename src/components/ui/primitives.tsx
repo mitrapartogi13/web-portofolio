@@ -60,32 +60,6 @@ export function Figure({
   );
 }
 
-/**
- * Margin note. On ≥1280px the parent grid places it in the margin column;
- * below that it reads as an inline callout.
- */
-export function Sidenote({
-  label = "Catatan",
-  children,
-  className,
-}: {
-  label?: string;
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <aside
-      className={cn(
-        "bg-paper-2 p-4 text-sm text-ink-2 xl:border-l xl:border-rule xl:bg-transparent xl:py-0 xl:pr-0",
-        className,
-      )}
-    >
-      <p className="mb-1 text-label text-ink-3">{label}</p>
-      {children}
-    </aside>
-  );
-}
-
 /** Small status dot + label, e.g. "Aktif". */
 export function Status({ children }: { children: ReactNode }) {
   return (
