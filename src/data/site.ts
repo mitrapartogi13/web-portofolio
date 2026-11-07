@@ -25,17 +25,17 @@ export const site = {
     items: [
       {
         name: projects[0].shortTitle,
-        tags: ["Competitive Programming", "Problem Setting"],
+        tags: ["Problem Setting", "C++"],
         image: "/work/schematics.webp",
       },
       {
         name: projects[1].shortTitle,
-        tags: ["Computer Vision", "Robot Control"],
+        tags: ["Vision", "Robot Control"],
         image: "/work/roboboat.webp",
       },
       {
         name: projects[2].shortTitle,
-        tags: ["Data Analysis", "Energy Efficiency"],
+        tags: ["Data Analysis", "Energy"],
         image: "/work/dhelibels.webp",
       },
       {
