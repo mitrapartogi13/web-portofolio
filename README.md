@@ -20,6 +20,9 @@ pnpm build && pnpm start
   `PLACEHOLDER` must be replaced before publishing (testimonials, the 4th project, Instagram/X URLs).
 - **Hero photo:** `public/hero-portrait.webp` (crop of `profile-picture.webp`). A high-resolution
   cut-out portrait gives the closest match to the reference.
+- **Selected Projects (dummy):** `site.projects` in `src/data/site.ts`, images in `public/lab/*.webp`
+  (1600×1000). All six entries are placeholders; `public/projects/` must not be used because
+  `/projects/*` redirects to the home page.
 - **Project shots:** `public/work/*.webp` (1920×1080). They were rendered from HTML mocks; replace
   them with real screenshots at the same size.
 
@@ -33,7 +36,7 @@ pnpm build && pnpm start
 - `prefers-reduced-motion`: no Lenis, no wall drift, no scroll scaling, text shown immediately.
 
 ```
-src/components/sections/   Hero, Portfolio, WhyWorkWithMe, Services, Awards, Trusted,
+src/components/sections/   Hero, Portfolio, WhyWorkWithMe, Services, Projects, Awards, Trusted,
                            Testimonials, Faq, Footer
 src/components/            Header, CtaButton, Logo, SplitText, Reveal, SmoothScroll, InViewObserver
 src/lib/                   scroll engine, Lenis bridge, utils
