@@ -18,8 +18,8 @@ pnpm build && pnpm start
 
 - **All copy:** `src/data/site.ts` (built from `src/data/portfolio.ts`). Items marked `DUMMY` or
   `PLACEHOLDER` must be replaced before publishing (testimonials, the 4th project, Instagram/X URLs).
-- **Hero photo:** `public/hero-portrait.webp` (crop of `profile-picture.webp`). A high-resolution
-  cut-out portrait gives the closest match to the reference.
+- **Hero photo:** `public/hero.webp` (cut-out, transparent background) plus `public/hero-mask.png`,
+  its alpha mask used for the stage lights. Regenerate the mask if you change the photo.
 - **Selected Projects (dummy):** `site.projects` in `src/data/site.ts`, images in `public/lab/*.webp`
   (1600×1000). All six entries are placeholders; `public/projects/` must not be used because
   `/projects/*` redirects to the home page.
