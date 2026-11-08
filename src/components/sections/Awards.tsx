@@ -1,36 +1,77 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { site } from "@/data/site";
-import { cn } from "@/lib/utils";
+import { prefersReducedMotion } from "@/lib/scroll";
 import SplitText from "../SplitText";
 import Reveal from "../Reveal";
 
 const items = site.awards.items;
 
+// Timings fitted to positions sampled every ~35ms on the reference.
+const EASE_OUT_CUBIC = "cubic-bezier(0.33, 1, 0.68, 1)";
+const CARD_MOVE = "transform 660ms cubic-bezier(0.33, 1.53, 0.69, 0.99)"; // back-out, ~9% overshoot
+const LAYER_IN = `transform 440ms ${EASE_OUT_CUBIC}`;
+const FADE_IN = `opacity 320ms ${EASE_OUT_CUBIC}`;
+const FADE_OUT = `opacity 430ms ${EASE_OUT_CUBIC}`;
+
 /**
- * Ledger of awards. On desktop a preview card follows the cursor; the
- * hovered row's image scales in on top of the previous one.
+ * Ledger of awards. On desktop a preview card sits at 50vw and glides
+ * vertically (back-out ease, slight overshoot) to centre on the hovered row;
+ * it does not follow the cursor horizontally. Each newly hovered row's image
+ * scales 0 → 1.05 on top of the stack. The card fades out when the pointer
+ * leaves the list but keeps its position, so the next hover glides from there.
  */
 export default function Awards() {
-  const listRef = useRef<HTMLDivElement>(null);
-  const previewRef = useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = useState<number | null>(null);
-  const [shown, setShown] = useState<number[]>([]);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const api = useRef<{ enter: (i: number) => void; leave: () => void } | null>(null);
 
-  const move = (e: React.PointerEvent) => {
-    const list = listRef.current;
-    const preview = previewRef.current;
-    if (!list || !preview || e.pointerType !== "mouse") return;
-    const r = list.getBoundingClientRect();
-    preview.style.transform = `translate(${e.clientX - r.left}px, ${e.clientY - r.top}px) translate(-50%, -50%)`;
-  };
+  useEffect(() => {
+    const reduce = prefersReducedMotion();
+    let z = 1;
+    let top = 0; // index of the image layer currently on top
 
-  const enter = (i: number) => {
-    setHovered(i);
-    setShown((s) => [...s.filter((x) => x !== i), i]);
-  };
+    api.current = {
+      enter(i) {
+        const row = rowRefs.current[i];
+        const box = boxRef.current;
+        const card = cardRef.current;
+        if (!row || !box || !card) return;
+
+        const y = row.offsetTop + row.offsetHeight / 2 - box.offsetHeight / 2;
+        card.style.transition = reduce ? "none" : CARD_MOVE;
+        card.style.transform = `translate3d(0, ${y}px, 0)`;
+
+        const layer = layerRefs.current[i];
+        if (layer && i !== top) {
+          top = i;
+          layer.style.zIndex = String(++z);
+          if (reduce) {
+            layer.style.transform = "scale(1.05)";
+          } else {
+            layer.style.transition = "none";
+            layer.style.transform = "scale(0)";
+            void layer.offsetWidth; // commit the start state before animating
+            layer.style.transition = LAYER_IN;
+            layer.style.transform = "scale(1.05)";
+          }
+        }
+
+        box.style.transition = reduce ? "none" : FADE_IN;
+        box.style.opacity = "1";
+      },
+      leave() {
+        const box = boxRef.current;
+        if (!box) return;
+        box.style.transition = reduce ? "none" : FADE_OUT;
+        box.style.opacity = "0";
+      },
+    };
+  }, []);
 
   return (
     <section id="awards" className="relative bg-night py-[7vw]">
@@ -40,15 +81,15 @@ export default function Awards() {
           className="mb-[4vw] text-[9vw] leading-[1.2] md:text-[7vw] lg:text-[5.5vw]"
         />
 
-        <div
-          ref={listRef}
-          className="relative"
-          onPointerMove={move}
-          onPointerLeave={() => setHovered(null)}
-        >
+        <div className="relative" onPointerLeave={() => api.current?.leave()}>
           {items.map((item, i) => (
-            <div key={item.title} onPointerEnter={() => enter(i)}>
-              <div className="py-5 lg:py-8">
+            <div key={item.title} onPointerEnter={(e) => e.pointerType === "mouse" && api.current?.enter(i)}>
+              <div
+                ref={(el) => {
+                  rowRefs.current[i] = el;
+                }}
+                className="py-5 lg:py-8"
+              >
                 <Reveal as="h3" delay={i * 0.05} className="line-up overflow-clip text-[5.5vw] leading-[1.5] md:text-[3.4vw] lg:text-[1.8vw]">
                   <span>{item.title}</span>
                 </Reveal>
@@ -60,28 +101,28 @@ export default function Awards() {
             </div>
           ))}
 
-          {/* Cursor-following preview (desktop only) */}
+          {/* Preview card (desktop only): fixed at 50vw, springs between rows */}
           <div
-            ref={previewRef}
+            ref={boxRef}
             aria-hidden
-            className={cn(
-              "pointer-events-none absolute top-0 left-0 z-10 hidden transition-opacity duration-300 lg:block",
-              hovered === null ? "opacity-0" : "opacity-100",
-            )}
+            className="pointer-events-none absolute top-0 left-[46vw] z-10 hidden opacity-0 lg:block"
           >
-            <div className="relative h-[22vw] w-[40vw] overflow-hidden rounded-2xl bg-night shadow-2xl">
-              {items.map((item, i) => {
-                const z = shown.indexOf(i);
-                return (
-                  <div
-                    key={item.title}
-                    className="absolute inset-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                    style={{ zIndex: z + 1, transform: `scale(${z === -1 ? 0 : hovered === i ? 1.05 : 1})` }}
-                  >
-                    <Image src={item.image} alt="" fill sizes="40vw" className="rounded-2xl object-cover" />
-                  </div>
-                );
-              })}
+            <div
+              ref={cardRef}
+              className="relative h-[22vw] w-[40vw] overflow-hidden rounded-2xl bg-night will-change-transform"
+            >
+              {items.map((item, i) => (
+                <div
+                  key={item.title}
+                  ref={(el) => {
+                    layerRefs.current[i] = el;
+                  }}
+                  className="absolute inset-0"
+                  style={{ zIndex: i === 0 ? 1 : 0, transform: `scale(${i === 0 ? 1.05 : 0})` }}
+                >
+                  <Image src={item.image} alt="" fill sizes="40vw" className="rounded-2xl object-cover" />
+                </div>
+              ))}
             </div>
           </div>
         </div>

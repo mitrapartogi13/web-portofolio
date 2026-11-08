@@ -21,6 +21,8 @@ const columns = [
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -37,6 +39,51 @@ export default function Hero() {
       const p = clamp((y - top) / (2 * window.innerHeight));
       card.style.transform = `scale(${1 - 0.5 * easeInOutCubic(p)})`;
     });
+  }, []);
+
+  // Mouse parallax, measured on the reference: the text row drifts up to
+  // 12px and the portrait up to 30px against the pointer (offset normalised
+  // to the viewport half-size), eased exponentially with τ = 660ms. It keeps
+  // its last position when the pointer leaves, like the reference.
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const TAU = 660;
+    let tx = 0;
+    let ty = 0;
+    let cx = 0;
+    let cy = 0;
+    let raf = 0;
+    let last = 0;
+
+    const step = (now: number) => {
+      const dt = last ? now - last : 16;
+      last = now;
+      const k = 1 - Math.exp(-dt / TAU);
+      cx += (tx - cx) * k;
+      cy += (ty - cy) * k;
+      if (textRef.current) textRef.current.style.transform = `translate3d(${-12 * cx}px, ${-12 * cy}px, 0)`;
+      if (imgRef.current) imgRef.current.style.transform = `translate3d(${-30 * cx}px, ${-30 * cy}px, 0)`;
+      if (Math.abs(tx - cx) + Math.abs(ty - cy) > 0.0005) raf = requestAnimationFrame(step);
+      else raf = 0;
+    };
+
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      const hw = window.innerWidth / 2;
+      const hh = window.innerHeight / 2;
+      tx = (e.clientX - hw) / hw;
+      ty = (e.clientY - hh) / hh;
+      if (!raf) {
+        last = 0;
+        raf = requestAnimationFrame(step);
+      }
+    };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
@@ -71,18 +118,20 @@ export default function Hero() {
           aria-hidden
           className="absolute top-[38vh] left-1/2 h-[193vw] w-[160vw] -translate-x-1/2 opacity-95 mix-blend-luminosity md:top-[-16vh] md:left-[10vw] md:h-[180vh] md:w-[100vw] md:translate-x-0 lg:left-1/2 lg:w-[180vw] lg:-translate-x-1/2"
         >
-          <Image
-            src={site.hero.image}
-            alt=""
-            fill
-            priority
-            quality={55}
-            sizes="(min-width: 1025px) 75vw, (min-width: 768px) 60vw, 100vw"
-            className="object-contain brightness-[0.7] contrast-[1.2] [mask-image:radial-gradient(ellipse_55%_48%_at_55%_48%,black_45%,transparent_100%)] md:[mask-image:radial-gradient(ellipse_50%_56%_at_53%_40%,black_45%,transparent_100%)] lg:[mask-image:radial-gradient(ellipse_26%_56%_at_53%_40%,black_45%,transparent_100%)]"
-          />
+          <div ref={imgRef} className="absolute inset-0 will-change-transform">
+            <Image
+              src={site.hero.image}
+              alt=""
+              fill
+              priority
+              quality={55}
+              sizes="(min-width: 1025px) 75vw, (min-width: 768px) 60vw, 100vw"
+              className="object-contain brightness-[0.7] contrast-[1.2] [mask-image:radial-gradient(ellipse_55%_48%_at_55%_48%,black_45%,transparent_100%)] md:[mask-image:radial-gradient(ellipse_50%_56%_at_53%_40%,black_45%,transparent_100%)] lg:[mask-image:radial-gradient(ellipse_26%_56%_at_53%_40%,black_45%,transparent_100%)]"
+            />
+          </div>
         </div>
 
-        <div className="relative z-10 flex w-full flex-col lg:flex-row lg:justify-between">
+        <div ref={textRef} className="relative z-10 flex w-full flex-col will-change-transform lg:flex-row lg:justify-between">
           <SplitText
             as="h1"
             onMount
