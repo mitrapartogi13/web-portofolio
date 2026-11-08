@@ -16,8 +16,8 @@ export const site = {
     title: ["Turning Logic", "into Systems"],
     sideTop: ["Competitive", "Programmer"],
     sideBottom: ["Informatics", "Engineer, ITS"],
-    // Real photo; a high-res cut-out portrait would match the reference best.
-    image: "/hero-portrait.webp",
+    // Cut-out portrait (transparent background); lights are added in CSS.
+    image: "/hero.webp",
   },
 
   work: {

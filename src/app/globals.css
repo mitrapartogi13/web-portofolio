@@ -100,6 +100,29 @@ html.lenis body {
   animation-delay: var(--wall-delay);
 }
 
+/* Hero stage lights: a slow, uneven breathing, like a warm practical lamp. */
+@keyframes hero-light {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  38% {
+    opacity: 0.86;
+  }
+  44% {
+    opacity: 0.97;
+  }
+  52% {
+    opacity: 0.8;
+  }
+  70% {
+    opacity: 0.95;
+  }
+}
+.hero-light {
+  animation: hero-light 7s ease-in-out infinite;
+}
+
 /* Letter-by-letter reveal used by every heading. */
 .split-letter {
   display: inline-block;
@@ -148,7 +171,8 @@ html.lenis body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wall-col {
+  .wall-col,
+  .hero-light {
     animation: none;
   }
   .split-letter,
