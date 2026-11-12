@@ -46,7 +46,7 @@ export default function Footer() {
         className="absolute top-[38vw] left-1/2 h-[234vw] w-[500vw] -translate-x-1/2 md:top-[50vw] md:h-[46.9vw] md:w-full lg:top-[9.4vw] lg:h-[46.9vw]"
         style={{
           background:
-            "radial-gradient(38% 46% at 22% 92%, #ffffff 0%, rgb(255 255 255 / 0) 100%), radial-gradient(42% 52% at 64% 104%, #dcdcd7 0%, rgb(220 220 215 / 0) 100%), radial-gradient(30% 40% at 92% 96%, #ffffff 0%, rgb(255 255 255 / 0) 100%), linear-gradient(to bottom, rgb(244 244 241 / 0) 35%, #e2e2dd 100%)",
+            "radial-gradient(38% 46% at 22% 92%, #ffffff 0%, rgb(255 255 255 / 0) 100%), radial-gradient(42% 52% at 64% 104%, #d8dde5 0%, rgb(216 221 229 / 0) 100%), radial-gradient(30% 40% at 92% 96%, #ffffff 0%, rgb(255 255 255 / 0) 100%), linear-gradient(to bottom, rgb(241 243 246 / 0) 35%, #dfe3ea 100%)",
           filter: "blur(24px)",
         }}
       />

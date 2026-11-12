@@ -33,8 +33,8 @@ pnpm build && pnpm start
 - `lenis` for smooth scroll and snap (portfolio cards). One rAF loop (`src/lib/scroll.ts`) drives
   every scroll-linked effect by writing styles directly — no React state per frame.
 - Headings and reveals are server components; a single `InViewObserver` adds the reveal classes.
-- Light theme tokens in `globals.css`: `fg` (text, lines, accent fills), `base` (sections),
-  `paper` (raised surfaces and cards), `wall` (behind the hero card). `bg-brand` is the accent fill.
+- Light theme ("Cool Mist") tokens in `globals.css`: `fg` #0f1419 (text, lines, accent fills), `base` #f1f3f6 (sections),
+  `paper` #ffffff (raised surfaces and cards), `wall` #dfe3ea (behind the hero card). `bg-brand` is the accent fill.
 - Hero load sequence (timed on the reference): `<html data-intro>` goes `wait → photo → text`;
   the portrait fades in first, then the title letters, side lines and header follow.
 - Selected Projects is a scroll-driven timeline: the line's head sits at 62% of the viewport and

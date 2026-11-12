@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: { title: `${personalInfo.name} — Informatics Engineer`, description, type: "website" },
 };
 
-export const viewport: Viewport = { themeColor: "#f4f4f1" };
+export const viewport: Viewport = { themeColor: "#f1f3f6" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

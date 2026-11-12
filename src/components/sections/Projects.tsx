@@ -118,7 +118,7 @@ export default function Projects() {
         <div
           ref={tipRef}
           aria-hidden
-          className="absolute top-0 left-[3vw] z-20 size-3 rounded-full bg-fg opacity-0 shadow-[0_0_0_6px_rgb(17_17_17/0.1)] transition-opacity duration-300 md:left-1/2"
+          className="absolute top-0 left-[3vw] z-20 size-3 rounded-full bg-fg opacity-0 shadow-[0_0_0_6px_rgb(15_20_25/0.1)] transition-opacity duration-300 md:left-1/2"
         />
 
         <ol className="relative flex flex-col gap-[16vw] md:gap-[10vw] lg:gap-[7vw]">

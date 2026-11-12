@@ -174,7 +174,7 @@ export default function Hero() {
       {/* Hero card */}
       <div
         ref={cardRef}
-        className="bg-hero sticky top-0 z-[2] flex h-screen origin-center flex-col overflow-hidden px-[5vw] pt-[30vw] shadow-[0_40px_120px_rgb(0_0_0/0.14)] will-change-transform lg:flex-row lg:items-center lg:px-[4vw] lg:pt-0"
+        className="bg-hero sticky top-0 z-[2] flex h-screen origin-center flex-col overflow-hidden px-[5vw] pt-[30vw] shadow-[0_40px_120px_rgb(15_20_25/0.14)] will-change-transform lg:flex-row lg:items-center lg:px-[4vw] lg:pt-0"
       >
         {/* Contact shadow: a blurred, slightly offset silhouette behind the
             subject so the cut-out sits on the light backdrop. */}

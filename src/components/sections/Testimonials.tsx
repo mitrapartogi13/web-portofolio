@@ -22,7 +22,7 @@ function initials(name: string) {
 /** Placeholder avatar: initials on a dark disc (no real photos yet). */
 function Avatar({ name }: { name: string }) {
   return (
-    <span className="grid size-full place-items-center rounded-full bg-[#e2e2de] text-[0.32em] text-fg/75">
+    <span className="grid size-full place-items-center rounded-full bg-[#e3e7ed] text-[0.32em] text-fg/75">
       {initials(name)}
     </span>
   );

@@ -112,7 +112,7 @@ export default function Portfolio() {
     >
       {/* The drop-shadow lives on a wrapper: a filter on the clipped band
           itself would be clipped away with it. */}
-      <div aria-hidden className="absolute inset-x-0 top-0 z-[2] h-[50vh] [filter:drop-shadow(0_-18px_40px_rgb(0_0_0/0.08))]">
+      <div aria-hidden className="absolute inset-x-0 top-0 z-[2] h-[50vh] [filter:drop-shadow(0_-18px_40px_rgb(15_20_25/0.08))]">
         <div ref={bandRef} className="absolute inset-0 bg-paper [clip-path:ellipse(150%_100%_at_50%_100%)]" />
       </div>
 

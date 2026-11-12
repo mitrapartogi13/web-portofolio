@@ -109,7 +109,7 @@ export default function Awards() {
           >
             <div
               ref={cardRef}
-              className="relative h-[22vw] w-[40vw] overflow-hidden rounded-2xl bg-paper shadow-[0_24px_60px_rgb(0_0_0/0.12)] will-change-transform"
+              className="relative h-[22vw] w-[40vw] overflow-hidden rounded-2xl bg-paper shadow-[0_24px_60px_rgb(15_20_25/0.12)] will-change-transform"
             >
               {items.map((item, i) => (
                 <div
