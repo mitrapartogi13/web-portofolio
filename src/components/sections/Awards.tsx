@@ -74,7 +74,7 @@ export default function Awards() {
   }, []);
 
   return (
-    <section id="awards" className="relative bg-night py-[7vw]">
+    <section id="awards" className="relative bg-base py-[7vw]">
       <div className="px-[5vw] lg:px-[4vw]">
         <SplitText
           lines={site.awards.title}
@@ -93,11 +93,11 @@ export default function Awards() {
                 <Reveal as="h3" delay={i * 0.05} className="line-up overflow-clip text-[5.5vw] leading-[1.5] md:text-[3.4vw] lg:text-[1.8vw]">
                   <span>{item.title}</span>
                 </Reveal>
-                <Reveal as="p" delay={i * 0.05 + 0.08} className="line-up mt-3 overflow-clip text-[3.6vw] leading-[1.5] tracking-[0.025em] text-white/50 md:text-[2.3vw] lg:text-[1.25vw]">
+                <Reveal as="p" delay={i * 0.05 + 0.08} className="line-up mt-3 overflow-clip text-[3.6vw] leading-[1.5] tracking-[0.025em] text-fg/60 md:text-[2.3vw] lg:text-[1.25vw]">
                   <span>{item.meta}</span>
                 </Reveal>
               </div>
-              <Reveal delay={i * 0.08} className="draw h-px w-full bg-white/20" />
+              <Reveal delay={i * 0.08} className="draw h-px w-full bg-fg/15" />
             </div>
           ))}
 
@@ -109,7 +109,7 @@ export default function Awards() {
           >
             <div
               ref={cardRef}
-              className="relative h-[22vw] w-[40vw] overflow-hidden rounded-2xl bg-night will-change-transform"
+              className="relative h-[22vw] w-[40vw] overflow-hidden rounded-2xl bg-paper shadow-[0_24px_60px_rgb(0_0_0/0.12)] will-change-transform"
             >
               {items.map((item, i) => (
                 <div

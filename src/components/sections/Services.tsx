@@ -37,7 +37,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="services" className="relative h-[275vh] bg-night">
+    <section ref={sectionRef} id="services" className="relative h-[275vh] bg-base">
       <div className="relative px-[5vw] pt-[15vw] md:w-[85vw] md:px-[5vw] md:pt-[15vw] lg:w-[60vw] lg:px-[4vw] lg:pt-[6vw]">
         <SplitText
           lines={site.services.title}
@@ -61,18 +61,18 @@ export default function Services() {
             <a
               key={card.title}
               href="#contact"
-              className="group relative flex h-[85vw] w-[75vw] shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-white/20 bg-card p-[5vw] md:h-[65vw] md:w-[55vw] md:p-[3vw] lg:h-[30vw] lg:w-[27vw] lg:p-[1.6vw]"
+              className="group relative flex h-[85vw] w-[75vw] shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-fg/12 bg-paper p-[5vw] transition-colors duration-500 group-hover:text-paper hover:text-paper md:h-[65vw] md:w-[55vw] md:p-[3vw] lg:h-[30vw] lg:w-[27vw] lg:p-[1.6vw]"
             >
               <div aria-hidden className="bg-brand absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <div className="relative flex justify-end">
-                <span className="relative grid size-[9vw] place-items-center overflow-hidden rounded-full border border-white/30 transition-colors duration-300 group-hover:bg-white md:size-[7vw] lg:size-[3vw]">
+                <span className="relative grid size-[9vw] place-items-center overflow-hidden rounded-full border border-fg/25 transition-colors duration-300 group-hover:border-transparent group-hover:bg-paper md:size-[7vw] lg:size-[3vw]">
                   <ArrowUpRight
                     aria-hidden
-                    className="size-[45%] transition-transform duration-300 ease-out group-hover:translate-x-[150%] group-hover:-translate-y-[150%] group-hover:text-black"
+                    className="size-[45%] transition-transform duration-300 ease-out group-hover:translate-x-[150%] group-hover:-translate-y-[150%] group-hover:text-fg"
                   />
                   <ArrowUpRight
                     aria-hidden
-                    className="absolute size-[45%] -translate-x-[150%] translate-y-[150%] text-black transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
+                    className="absolute size-[45%] -translate-x-[150%] translate-y-[150%] text-fg transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
                   />
                 </span>
               </div>
@@ -86,7 +86,7 @@ export default function Services() {
                       key={item}
                       className="mb-[1.8vw] flex items-center gap-[2.5vw] text-[4vw] leading-[1.5] last:mb-0 md:mb-[1vw] md:gap-[1.4vw] md:text-[3vw] lg:mb-[0.4vw] lg:gap-[0.7vw] lg:text-[1.25vw]"
                     >
-                      <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-white" />
+                      <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-current" />
                       {item}
                     </li>
                   ))}

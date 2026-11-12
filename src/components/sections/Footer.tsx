@@ -40,20 +40,20 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="relative overflow-hidden px-[5vw] pt-[20vw] md:pt-[10vw] lg:px-[4vw] lg:pt-[10vw]">
-      {/* Orange glow, recreated with gradients (the reference uses an SVG). */}
+      {/* Soft grey glow, recreated with gradients (the reference uses an SVG). */}
       <div
         aria-hidden
         className="absolute top-[38vw] left-1/2 h-[234vw] w-[500vw] -translate-x-1/2 md:top-[50vw] md:h-[46.9vw] md:w-full lg:top-[9.4vw] lg:h-[46.9vw]"
         style={{
           background:
-            "radial-gradient(38% 46% at 22% 92%, #f16b0d 0%, rgb(241 107 13 / 0) 100%), radial-gradient(42% 52% at 64% 104%, #f0640d 0%, rgb(240 100 13 / 0) 100%), radial-gradient(30% 40% at 92% 96%, #e8500e 0%, rgb(232 80 14 / 0) 100%), linear-gradient(to bottom, rgb(5 5 5 / 0) 35%, #e65a0e 100%)",
+            "radial-gradient(38% 46% at 22% 92%, #ffffff 0%, rgb(255 255 255 / 0) 100%), radial-gradient(42% 52% at 64% 104%, #dcdcd7 0%, rgb(220 220 215 / 0) 100%), radial-gradient(30% 40% at 92% 96%, #ffffff 0%, rgb(255 255 255 / 0) 100%), linear-gradient(to bottom, rgb(244 244 241 / 0) 35%, #e2e2dd 100%)",
           filter: "blur(24px)",
         }}
       />
 
       <div className="relative">
         <Reveal
-          className="rise flex flex-col gap-8 rounded-[32px] border border-white/30 bg-black/5 px-6 py-[60px] md:gap-10 md:px-8 lg:gap-20 lg:p-12"
+          className="rise flex flex-col gap-8 rounded-[32px] border border-fg/15 bg-paper/60 px-6 backdrop-blur-sm py-[60px] md:gap-10 md:px-8 lg:gap-20 lg:p-12"
           rise="96px"
         >
           <div className="flex flex-col-reverse items-center gap-16 md:gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-24">
@@ -71,7 +71,7 @@ export default function Footer() {
             <div className="flex flex-col items-center gap-[1vw] text-[4.6vw] leading-[1.5] md:text-[2.3vw] lg:items-start lg:text-[1.25vw]">
               <h2 className="mb-[2vw] uppercase lg:mb-[1vw]">Reach Out</h2>
               <p>{site.location}</p>
-              <a href={`mailto:${site.email}`} className="hover:text-white/70">
+              <a href={`mailto:${site.email}`} className="hover:text-fg/60">
                 {site.email}
               </a>
             </div>
@@ -83,7 +83,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className="grid size-[42px] place-items-center rounded-full border border-white/60 transition-colors hover:bg-white hover:text-black"
+                    className="grid size-[42px] place-items-center rounded-full border border-fg/40 transition-colors hover:bg-fg hover:text-paper"
                   >
                     <SocialIcon name={s.icon} />
                   </a>
@@ -100,7 +100,7 @@ export default function Footer() {
             {site.name.last.slice(1).toLowerCase()} {year}
           </p>
           <p>
-            Layout: <a href="https://elena-voss-portfolio-template-v3.21st.app/" className="hover:text-white/70">Hyperiux</a>
+            Layout: <a href="https://elena-voss-portfolio-template-v3.21st.app/" className="hover:text-fg/60">Hyperiux</a>
           </p>
         </div>
       </div>

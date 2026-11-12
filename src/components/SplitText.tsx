@@ -5,8 +5,12 @@ interface SplitTextProps {
   lines: readonly string[];
   as?: ElementType;
   className?: string;
-  /** Reveal on load (hero) instead of on scroll into view. */
-  onMount?: boolean;
+  /**
+   * "view" (default): reveal when scrolled into view.
+   * "mount": reveal right after hydration.
+   * "manual": the parent adds `split-in` itself (hero intro sequence).
+   */
+  trigger?: "view" | "mount" | "manual";
   delay?: number;
   stagger?: number;
 }
@@ -20,14 +24,14 @@ export default function SplitText({
   lines,
   as: Tag = "h2",
   className,
-  onMount = false,
+  trigger = "view",
   delay = 0,
   stagger = 0.022,
 }: SplitTextProps) {
   let i = 0;
 
   return (
-    <Tag data-split={onMount ? "mount" : ""} aria-label={lines.join(" ")} className={className}>
+    <Tag data-split={trigger === "view" ? "" : trigger} aria-label={lines.join(" ")} className={className}>
       {lines.map((line, li) => (
         <span key={li} aria-hidden className="block">
           {line.split(" ").map((word, wi, words) => (

@@ -22,7 +22,7 @@ function initials(name: string) {
 /** Placeholder avatar: initials on a dark disc (no real photos yet). */
 function Avatar({ name }: { name: string }) {
   return (
-    <span className="grid size-full place-items-center rounded-full bg-[#2b2b2b] text-[0.32em] text-white/80">
+    <span className="grid size-full place-items-center rounded-full bg-[#e2e2de] text-[0.32em] text-fg/75">
       {initials(name)}
     </span>
   );
@@ -38,7 +38,7 @@ export default function Testimonials() {
   const item = items[active];
 
   return (
-    <section id="testimonials" className="bg-night px-[5vw] py-[12vw] lg:px-[4vw] lg:py-[7vw]">
+    <section id="testimonials" className="bg-base px-[5vw] py-[12vw] lg:px-[4vw] lg:py-[7vw]">
       <div className="flex flex-col gap-[16vw] md:gap-[10vw] lg:gap-[6vw]">
         <SplitText
           lines={site.testimonials.title}
@@ -46,17 +46,17 @@ export default function Testimonials() {
         />
 
         <Reveal className="rise relative" rise="40px">
-          <div className="relative mx-auto h-[95vw] w-[90vw] overflow-hidden rounded-[5vw] border border-white/10 bg-white/5 md:h-[52vw] md:rounded-[5vw] lg:h-[30vw] lg:w-[55.2vw] lg:rounded-[2vw]">
+          <div className="relative mx-auto h-[95vw] w-[90vw] overflow-hidden rounded-[5vw] border border-fg/10 bg-paper md:h-[52vw] md:rounded-[5vw] lg:h-[30vw] lg:w-[55.2vw] lg:rounded-[2vw]">
             <div
               key={active}
               aria-live="polite"
               className="flex h-full animate-[fade-in_0.6s_ease] flex-col items-center justify-center gap-[6vw] px-[7vw] pt-[22vw] pb-[8vw] text-center md:gap-[4vw] md:px-[8vw] md:pt-[14vw] md:pb-[4vw] lg:gap-[2.5vw] lg:px-[6vw] lg:pt-[8vw] lg:pb-[4vw]"
             >
               <div className="flex flex-col gap-[0.4vw]">
-                <p className="text-[6vw] leading-[1.5] text-accent md:text-[4vw] lg:text-[2.6vw]">{item.name}</p>
+                <p className="text-[6vw] leading-[1.5] text-fg md:text-[4vw] lg:text-[2.6vw]">{item.name}</p>
                 <p className="text-[3.5vw] leading-[1.5] md:text-[2.15vw] lg:text-[1.145vw]">{item.role}</p>
               </div>
-              <p className="w-[75vw] text-[3.6vw] leading-[1.6] text-white/70 md:w-[74vw] md:text-[2.15vw] lg:w-[35.3vw] lg:text-[1.145vw]">
+              <p className="w-[75vw] text-[3.6vw] leading-[1.6] text-fg/70 md:w-[74vw] md:text-[2.15vw] lg:w-[35.3vw] lg:text-[1.145vw]">
                 “{item.quote}”
               </p>
             </div>
@@ -100,7 +100,7 @@ export default function Testimonials() {
                 type="button"
                 onClick={() => go(d)}
                 aria-label={label}
-                className="group relative grid size-10 place-items-center overflow-hidden rounded-full border border-white/20 md:size-12"
+                className="group relative grid size-10 place-items-center overflow-hidden rounded-full border border-fg/20 transition-colors duration-300 hover:text-paper md:size-12"
               >
                 <span aria-hidden className="bg-brand absolute inset-0 scale-0 rounded-full transition-transform duration-300 group-hover:scale-100" />
                 <Icon aria-hidden className="relative size-4" />

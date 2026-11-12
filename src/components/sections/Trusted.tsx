@@ -59,7 +59,7 @@ export default function Trusted() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="trusted" className="relative z-[2] h-[240vh] bg-night">
+    <section ref={sectionRef} id="trusted" className="relative z-[2] h-[240vh] bg-base">
       <div className="sticky top-0 flex h-screen items-center justify-center">
         <SplitText
           lines={site.trusted.title}

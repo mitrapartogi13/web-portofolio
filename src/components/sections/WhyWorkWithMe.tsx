@@ -9,7 +9,7 @@ export default function WhyWorkWithMe() {
   return (
     <section
       id="why"
-      className="relative bg-night pt-[65vw] pb-[10vw] lg:pt-[25vw] lg:pb-[10vw]"
+      className="relative bg-base pt-[65vw] pb-[10vw] lg:pt-[25vw] lg:pb-[10vw]"
     >
       <div className="mb-[10vw] text-center md:mb-[5vw] lg:mb-[5vw]">
         <SplitText
@@ -32,13 +32,13 @@ export default function WhyWorkWithMe() {
               className="rise flex flex-col px-[5vw] py-[6vw] md:px-[5vw] md:py-[6vw] lg:min-h-[32vw] lg:px-[4vw] lg:pt-[2vw] lg:pb-[3vw]"
             >
               <div>
-                <Icon aria-hidden size={50} strokeWidth={1.5} className="mb-[4vw] text-icon lg:mb-[2.5vw]" />
+                <Icon aria-hidden size={50} strokeWidth={1.5} className="mb-[4vw] text-fg lg:mb-[2.5vw]" />
                 <h3 className="mb-[2vw] text-[5.8vw] leading-[1.5] md:text-[4.2vw] lg:mb-[2.5vw] lg:text-[2vw]">
                   {card.title}
                 </h3>
-                <p className="text-[4vw] leading-[1.5] text-white/80 md:text-[2.8vw] lg:text-[1.25vw]">{card.text}</p>
+                <p className="text-[4vw] leading-[1.5] text-fg/75 md:text-[2.8vw] lg:text-[1.25vw]">{card.text}</p>
               </div>
-              <div aria-hidden className="mt-[3vw] h-px w-full shrink-0 bg-white/20 lg:mt-auto" />
+              <div aria-hidden className="mt-[3vw] h-px w-full shrink-0 bg-fg/15 lg:mt-auto" />
             </Reveal>
           );
         })}

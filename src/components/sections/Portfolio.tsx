@@ -13,7 +13,7 @@ const items = site.work.items;
 const STEPS = items.length - 1;
 
 /**
- * 360vh section. A curved orange band rises over the hero (clip-path
+ * 360vh section. A curved white band rises over the hero (clip-path
  * ellipse 150% → 60%, easeOutCubic), then a sticky gradient panel holds the
  * project list while preview cards slide up one by one, darkening the card
  * beneath to brightness(0.3). Scroll snaps to one stop per card.
@@ -110,9 +110,13 @@ export default function Portfolio() {
       id="portfolio"
       className="relative h-[360vh] pt-[30vw] lg:pt-[8vw]"
     >
-      <div ref={bandRef} aria-hidden className="bg-brand absolute inset-x-0 top-0 z-[2] h-[50vh] [clip-path:ellipse(150%_100%_at_50%_100%)]" />
+      {/* The drop-shadow lives on a wrapper: a filter on the clipped band
+          itself would be clipped away with it. */}
+      <div aria-hidden className="absolute inset-x-0 top-0 z-[2] h-[50vh] [filter:drop-shadow(0_-18px_40px_rgb(0_0_0/0.08))]">
+        <div ref={bandRef} className="absolute inset-0 bg-paper [clip-path:ellipse(150%_100%_at_50%_100%)]" />
+      </div>
 
-      <div className="bg-brand sticky top-0 z-[3] flex h-screen flex-col items-center justify-center gap-[15vw] overflow-hidden px-[5vw] md:gap-[6.25vw] lg:gap-[5vw] lg:px-[4vw]">
+      <div className="sticky top-0 z-[3] flex h-screen bg-paper flex-col items-center justify-center gap-[15vw] overflow-hidden px-[5vw] md:gap-[6.25vw] lg:gap-[5vw] lg:px-[4vw]">
         <SplitText
           lines={site.work.title}
           className="text-center text-[9vw] leading-[1.5] md:text-[6.5vw] lg:text-[5.5vw]"
@@ -121,11 +125,11 @@ export default function Portfolio() {
         <div className="flex w-full flex-col items-center gap-[8vw] md:gap-[5vw] lg:flex-row lg:gap-[4vw]">
           {/* Index with progress rail */}
           <div className="relative w-full lg:w-[21.33vw] lg:shrink-0">
-            <div aria-hidden className="absolute top-[7vw] left-1 h-[63vw] w-px bg-white/20 md:top-[3.5vw] md:h-[33vw] lg:top-[2.75vw] lg:h-[21vw]" />
+            <div aria-hidden className="absolute top-[7vw] left-1 h-[63vw] w-px bg-fg/15 md:top-[3.5vw] md:h-[33vw] lg:top-[2.75vw] lg:h-[21vw]" />
             <div
               ref={railRef}
               aria-hidden
-              className="absolute top-[7vw] left-1 h-[63vw] w-px origin-top scale-y-0 bg-white md:top-[3.5vw] md:h-[33vw] lg:top-[2.75vw] lg:h-[21vw]"
+              className="absolute top-[7vw] left-1 h-[63vw] w-px origin-top scale-y-0 bg-fg md:top-[3.5vw] md:h-[33vw] lg:top-[2.75vw] lg:h-[21vw]"
             />
             <ol className="flex flex-col">
               {items.map((item, i) => (
@@ -138,7 +142,7 @@ export default function Portfolio() {
                     aria-hidden
                     className={cn(
                       "-mt-[7vw] size-2.5 shrink-0 rounded-full border transition-colors duration-500 md:-mt-[4vw] lg:-mt-[1.5vw]",
-                      i <= active ? "border-white bg-white" : "border-white/50 bg-[#f06a0e]",
+                      i <= active ? "border-fg bg-fg" : "border-fg/35 bg-paper",
                     )}
                   />
                   <div>
@@ -176,9 +180,9 @@ export default function Portfolio() {
         </div>
       </div>
 
-      {/* Soft orange → black hand-off into the next section */}
+      {/* Soft white → base hand-off into the next section */}
       <div aria-hidden className="absolute top-[calc(100%_-_24vh)] left-0 h-[60vh] w-full overflow-hidden">
-        <div className="bg-brand absolute top-[-1vh] left-[-7.5vw] z-[2] h-[40vh] w-[115vw] blur-[40px]" />
+        <div className="absolute top-[-1vh] left-[-7.5vw] z-[2] h-[40vh] w-[115vw] bg-paper blur-[40px]" />
       </div>
     </section>
   );

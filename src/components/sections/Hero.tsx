@@ -16,7 +16,7 @@ const columns = [
 // Photo box, same geometry as the reference (desktop shifted right so the
 // face sits beside the headline). Shared by the photo and its light layers.
 const GEO =
-  "absolute top-[calc(50vh_-_30vw)] left-[58vw] h-[250vw] w-[200vw] -translate-x-1/2 md:top-[calc(50vh_-_28vw)] md:left-[62vw] md:h-[190vw] md:w-[160vw] lg:top-[-16vh] lg:left-[54vw] lg:h-[180vh] lg:w-[180vw]";
+  "absolute top-[calc(50vh_-_30vw)] left-[58vw] h-[250vw] w-[200vw] -translate-x-1/2 md:top-[calc(50vh_-_28vw)] md:left-[62vw] md:h-[190vw] md:w-[160vw] lg:top-[-16vh] lg:left-[57vw] lg:h-[180vh] lg:w-[180vw]";
 
 // Alpha mask of the cut-out (public/hero-mask.png, 15 KB) so lights only
 // touch the subject. Sized/positioned like the object-contain photo.
@@ -32,7 +32,7 @@ const SILHOUETTE: CSSProperties = {
 };
 
 /**
- * 300vh section. The gradient card is sticky and shrinks from scale 1 to 0.5
+ * 300vh section. The backdrop card is sticky and shrinks from scale 1 to 0.5
  * over the first 2 viewport heights (easeInOutCubic, measured on the
  * reference), uncovering a wall of project shots drifting upwards.
  */
@@ -41,6 +41,49 @@ export default function Hero() {
   const cardRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
+
+  // Load sequence, timed on the reference: once the portrait has loaded it
+  // fades in (1.4s); 1.1s later the title letters start rising one by one,
+  // followed by the side lines and the header (delays in the markup / CSS).
+  useEffect(() => {
+    const root = document.documentElement;
+    const title = textRef.current?.querySelector("h1");
+    const showText = () => {
+      root.dataset.intro = "text";
+      title?.classList.add("split-in");
+    };
+    if (prefersReducedMotion()) {
+      showText();
+      return;
+    }
+
+    let started = false;
+    let textTimer = 0;
+    const start = () => {
+      if (started) return;
+      started = true;
+      requestAnimationFrame(() => {
+        root.dataset.intro = "photo";
+        textTimer = window.setTimeout(showText, 1100);
+      });
+    };
+
+    const img = imgRef.current?.querySelector("img");
+    if (img?.complete && img.naturalWidth > 0) start();
+    else {
+      img?.addEventListener("load", start, { once: true });
+      img?.addEventListener("error", start, { once: true });
+    }
+    // Never leave the hero blank on a very slow connection.
+    const fallback = window.setTimeout(start, 2500);
+
+    return () => {
+      window.clearTimeout(textTimer);
+      window.clearTimeout(fallback);
+      img?.removeEventListener("load", start);
+      img?.removeEventListener("error", start);
+    };
+  }, []);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -110,7 +153,7 @@ export default function Hero() {
   return (
     <section ref={sectionRef} id="hero" className="relative h-[300vh]">
       {/* Work wall, revealed as the card shrinks */}
-      <div aria-hidden className="absolute inset-0 bg-night">
+      <div aria-hidden className="absolute inset-0 bg-wall">
         <div className="sticky top-0 flex h-screen gap-[2.5vw] overflow-hidden px-[5vw] lg:px-[4vw]">
           {columns.map((col, c) => (
             <div
@@ -131,19 +174,21 @@ export default function Hero() {
       {/* Hero card */}
       <div
         ref={cardRef}
-        className="bg-hero sticky top-0 z-[2] flex h-screen origin-center flex-col overflow-hidden px-[5vw] pt-[30vw] will-change-transform lg:flex-row lg:items-center lg:px-[4vw] lg:pt-0"
+        className="bg-hero sticky top-0 z-[2] flex h-screen origin-center flex-col overflow-hidden px-[5vw] pt-[30vw] shadow-[0_40px_120px_rgb(0_0_0/0.14)] will-change-transform lg:flex-row lg:items-center lg:px-[4vw] lg:pt-0"
       >
-        {/* Backlight: blurred orange silhouette behind the subject. */}
-        <div aria-hidden className={`${GEO} opacity-60 blur-[48px]`}>
-          <div data-depth="30" className="absolute inset-0 scale-[1.04] will-change-transform">
-            <div className="hero-light absolute inset-0 bg-[#ff5a0a]" style={SILHOUETTE} />
+        {/* Contact shadow: a blurred, slightly offset silhouette behind the
+            subject so the cut-out sits on the light backdrop. */}
+        <div aria-hidden className={`${GEO} intro-photo`}>
+          <div data-depth="30" className="absolute inset-0 will-change-transform">
+            <div
+              className="absolute inset-0 translate-x-[1.2vw] translate-y-[0.8vw] scale-[1.03] bg-fg opacity-[0.16] blur-[36px]"
+              style={SILHOUETTE}
+            />
           </div>
         </div>
 
-        {/* Portrait. The blend lives on this positioned wrapper (its transform
-            makes a stacking context), so it blends with the card gradient and
-            the subject takes the gradient's hues. */}
-        <div aria-hidden className={`${GEO} mix-blend-luminosity`}>
+        {/* Portrait. The lower body dissolves into the backdrop. */}
+        <div aria-hidden className={`${GEO} intro-photo`}>
           <div ref={imgRef} data-depth="30" className="absolute inset-0 will-change-transform">
             <Image
               src={site.hero.image}
@@ -152,22 +197,17 @@ export default function Hero() {
               priority
               quality={60}
               sizes="(min-width: 1025px) 64vw, (min-width: 768px) 80vw, 110vw"
-              className="object-contain brightness-[0.72] contrast-[1.45]"
-            />
-            {/* Shade the lower body so it sinks into the dark base. */}
-            <div
-              className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_40%,rgb(0_0_0/0.8)_100%),linear-gradient(to_right,transparent_48%,rgb(0_0_0/0.5)_72%)]"
-              style={SILHOUETTE}
+              className="object-contain saturate-[0.9] contrast-[1.06] [mask-image:linear-gradient(to_bottom,black_62%,transparent_97%)]"
             />
           </div>
         </div>
 
-        {/* Stage lights: red key light from the left, orange rim from the
-            top right, screened on top of the subject only. */}
-        <div aria-hidden className={`${GEO} mix-blend-screen`}>
+        {/* Studio lights: a soft white key from the left and a rim from the
+            top right, screened onto the subject only. */}
+        <div aria-hidden className={`${GEO} intro-photo mix-blend-screen`}>
           <div data-depth="30" className="absolute inset-0 will-change-transform">
             <div
-              className="hero-light absolute inset-0 bg-[radial-gradient(26%_20%_at_38%_30%,rgb(255_30_10/0.9)_0%,transparent_70%),radial-gradient(22%_26%_at_64%_24%,rgb(255_140_40/0.55)_0%,transparent_70%),radial-gradient(40%_18%_at_45%_52%,rgb(255_70_20/0.35)_0%,transparent_70%)]"
+              className="hero-light absolute inset-0 bg-[radial-gradient(28%_22%_at_36%_30%,rgb(255_255_255/0.32)_0%,transparent_70%),radial-gradient(22%_26%_at_64%_24%,rgb(255_255_255/0.22)_0%,transparent_70%),radial-gradient(40%_18%_at_45%_52%,rgb(255_255_255/0.12)_0%,transparent_70%)]"
               style={SILHOUETTE}
             />
           </div>
@@ -176,22 +216,21 @@ export default function Hero() {
         <div ref={textRef} className="relative z-10 flex w-full flex-col will-change-transform lg:flex-row lg:justify-between">
           <SplitText
             as="h1"
-            onMount
-            delay={0.2}
+            trigger="manual"
+            stagger={0.045}
             lines={[site.hero.title.join(" ")]}
-            className="text-[15vw] leading-[1.1] md:w-[56vw] md:text-[12vw] lg:w-[41.4vw] lg:text-[7.5vw]"
+            className="hero-title text-[15vw] leading-[1.1] md:w-[56vw] md:text-[12vw] lg:w-[41.4vw] lg:text-[7.5vw]"
           />
           <div className="mt-[6vw] flex flex-col-reverse gap-[7vw] text-[4.5vw] leading-[1.15] md:mt-[4vw] md:gap-[10.4vw] md:py-[2vw] md:text-[3.5vw] lg:mt-0 lg:flex-col lg:justify-between lg:gap-0 lg:text-right lg:text-[1.25vw]">
-            <p>
-              {site.hero.sideTop[0]}
-              <br />
-              {site.hero.sideTop[1]}
-            </p>
-            <p>
-              {site.hero.sideBottom[0]}
-              <br />
-              {site.hero.sideBottom[1]}
-            </p>
+            {[site.hero.sideTop, site.hero.sideBottom].map((lines, b) => (
+              <p key={b}>
+                {lines.map((line, l) => (
+                  <span key={l} className="intro-line">
+                    <span style={{ "--d": `${1.05 + b * 0.12 + l * 0.08}s` } as CSSProperties}>{line}</span>
+                  </span>
+                ))}
+              </p>
+            ))}
           </div>
         </div>
       </div>

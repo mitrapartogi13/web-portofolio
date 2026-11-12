@@ -19,15 +19,19 @@ export const metadata: Metadata = {
   openGraph: { title: `${personalInfo.name} — Informatics Engineer`, description, type: "website" },
 };
 
-export const viewport: Viewport = { themeColor: "#050505" };
+export const viewport: Viewport = { themeColor: "#f4f4f1" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={hostGrotesk.variable}>
+    // data-intro drives the hero load sequence (see Hero.tsx / globals.css).
+    <html lang="en" className={hostGrotesk.variable} data-intro="wait" suppressHydrationWarning>
       <body>
+        <noscript>
+          <style>{`[data-intro] .intro-photo,[data-intro] .intro-header{opacity:1!important;transform:none!important}[data-intro] .intro-line>span,[data-intro] .split-letter{transform:none!important}`}</style>
+        </noscript>
         <a
           href="#main"
-          className="sr-only z-[100] rounded-full bg-white px-4 py-3 text-sm text-black focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-[100] rounded-full bg-fg px-4 py-3 text-sm text-paper focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to content
         </a>

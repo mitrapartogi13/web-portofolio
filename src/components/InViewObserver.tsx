@@ -28,7 +28,7 @@ export default function InViewObserver() {
     els.forEach((el) => {
       const mode = el.dataset.reveal ?? el.dataset.split;
       if (mode === "mount") requestAnimationFrame(() => show(el));
-      else io.observe(el);
+      else if (mode !== "manual") io.observe(el);
     });
     return () => io.disconnect();
   }, []);

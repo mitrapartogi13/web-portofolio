@@ -12,13 +12,13 @@
   --color-*: initial;
   --color-white: #ffffff;
   --color-black: #000000;
-  --color-ink: #050505;
-  --color-night: #070707;
-  --color-card: #161616;
-  --color-orange: #f16b0d;
-  --color-red: #e61416;
-  --color-accent: #ff6b00;
-  --color-icon: #e8620f;
+  /* Light theme. fg = text, lines and accent fills; base = section
+     background; paper = raised surfaces (former orange panels, cards);
+     wall = the backdrop behind the shrinking hero card. */
+  --color-fg: #111111;
+  --color-base: #f4f4f1;
+  --color-paper: #ffffff;
+  --color-wall: #e6e6e2;
   --color-cream: #f4efe9;
 
   --font-*: initial;
@@ -30,13 +30,13 @@
 
 @layer base {
   html {
-    background: var(--color-ink);
-    color: var(--color-white);
+    background: var(--color-base);
+    color: var(--color-fg);
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background: var(--color-ink);
+    background: var(--color-base);
     font-family: var(--font-sans);
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
@@ -45,29 +45,31 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-fg);
     outline-offset: 3px;
   }
 
   ::selection {
-    background: var(--color-orange);
-    color: var(--color-white);
+    background: var(--color-fg);
+    color: var(--color-paper);
   }
 }
 
-/* The signature orange → red sweep used across the page. */
+/* Accent fill (hover states, active chips, rings). It replaced the
+   orange → red sweep when the theme moved to white. */
 @utility bg-brand {
-  background-image: linear-gradient(to right in oklab, #f16b0d 0%, #e61416 100%);
+  background-color: var(--color-fg);
 }
 
-/* Hero card background, copied value-for-value from the reference measurement. */
+/* Hero card: a soft studio backdrop. Same gradient layout as the old
+   orange card (two glows, a centre falloff, a vertical base), in greys. */
 @utility bg-hero {
-  background-color: #180d08;
+  background-color: #efefeb;
   background-image:
-    radial-gradient(65% 55% at 92% 6%, #f0640d 0%, rgb(240 100 13 / 0) 65%),
-    radial-gradient(60% 55% at 4% 82%, #ec690f 0%, rgb(236 105 15 / 0) 65%),
-    radial-gradient(75% 80% at 48% 42%, #b01205 0%, rgb(176 18 5 / 0) 70%),
-    linear-gradient(#d8470a 0%, #c0300a 28%, #b01205 46%, #7a1c08 68%, #2a1108 88%, #180d08 100%);
+    radial-gradient(65% 55% at 92% 6%, #ffffff 0%, rgb(255 255 255 / 0) 65%),
+    radial-gradient(60% 55% at 4% 82%, #ffffff 0%, rgb(255 255 255 / 0) 65%),
+    radial-gradient(75% 80% at 48% 42%, #e9e9e5 0%, rgb(233 233 229 / 0) 70%),
+    linear-gradient(#fbfbf9 0%, #f4f4f1 28%, #ecece8 46%, #e5e5e1 68%, #dcdcd7 88%, #d6d6d1 100%);
 }
 
 /* ---------- Lenis (smooth scroll) ---------- */
@@ -100,6 +102,42 @@ html.lenis body {
   animation-delay: var(--wall-delay);
 }
 
+/* Hero intro, timed on the reference: the photo fades in first (1.4s,
+   CSS "ease" fits the sampled curve), then the headline letters rise one
+   by one, then the side lines, then the header drops in. Hero.tsx moves
+   <html data-intro> from "wait" → "photo" → "text". Without JS the
+   <noscript> rule in layout.tsx shows everything. */
+.intro-photo {
+  transition: opacity 1.4s ease;
+}
+[data-intro="wait"] .intro-photo {
+  opacity: 0;
+}
+.intro-line {
+  display: block;
+  overflow: clip;
+}
+.intro-line > span {
+  display: block;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+}
+:is([data-intro="wait"], [data-intro="photo"]) .intro-line > span {
+  transform: translateY(105%);
+}
+.intro-header {
+  transition:
+    opacity 0.8s ease-out var(--d, 0s),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+}
+:is([data-intro="wait"], [data-intro="photo"]) .intro-header {
+  opacity: 0;
+  transform: translateY(-50px);
+}
+/* Slower, more deliberate letters for the hero title. */
+.hero-title .split-letter {
+  transition-duration: 1.1s;
+}
+
 /* Hero stage lights: a slow, uneven breathing, like a warm practical lamp. */
 @keyframes hero-light {
   0%,
@@ -123,8 +161,8 @@ html.lenis body {
   animation: hero-light 7s ease-in-out infinite;
 }
 
-/* Projects grid: image opens from the bottom while zooming out, then the
-   text rises. --d staggers the two columns. */
+/* Project cards: image opens from the bottom while zooming out, then the
+   text rises. Driven by `.in` on the timeline item. */
 .proj-media {
   clip-path: inset(100% 0 0 0 round var(--r));
   transition: clip-path 1.1s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
@@ -149,6 +187,78 @@ html.lenis body {
 .proj.in .proj-meta {
   opacity: 1;
   transform: none;
+}
+
+/* Projects timeline. `.in` is toggled by Projects.tsx when the progress
+   line reaches an item's node (and removed when it scrolls back). */
+.tl-card {
+  opacity: 0;
+  transform: translate3d(var(--tl-x), 32px, 0);
+  transition:
+    opacity 0.8s ease,
+    transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Cards grow out of the line: on the left they start nudged right, on
+   the right (and on mobile) they start nudged left. */
+.tl-item {
+  --tl-x: -6vw;
+}
+@media (min-width: 768px) {
+  .tl-item[data-side="left"] {
+    --tl-x: 4vw;
+  }
+  .tl-item[data-side="right"] {
+    --tl-x: -4vw;
+  }
+}
+.tl-item.in .tl-card {
+  opacity: 1;
+  transform: none;
+}
+.tl-dot {
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.tl-item.in .tl-dot {
+  transform: scale(1);
+}
+.tl-item.in .tl-node {
+  border-color: var(--color-fg);
+}
+.tl-node::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid var(--color-fg);
+  opacity: 0;
+}
+.tl-item.in .tl-node::after {
+  animation: tl-pulse 0.9s ease-out;
+}
+@keyframes tl-pulse {
+  from {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+.tl-year {
+  color: rgb(17 17 17 / 0.14);
+  transition: color 0.6s ease;
+}
+.tl-item.in .tl-year {
+  color: var(--color-fg);
+}
+.tl-side {
+  opacity: 0.6;
+  transition: opacity 0.6s ease;
+}
+.tl-item.in .tl-side {
+  opacity: 1;
 }
 
 /* Letter-by-letter reveal used by every heading. */
@@ -203,6 +313,16 @@ html.lenis body {
   .hero-light {
     animation: none;
   }
+  .intro-photo,
+  .intro-line > span,
+  .intro-header {
+    transition: none !important;
+  }
+  .tl-item.in .tl-node::after {
+    animation: none;
+  }
+  .tl-card,
+  .tl-dot,
   .proj-media,
   .proj-zoom,
   .proj-meta,
