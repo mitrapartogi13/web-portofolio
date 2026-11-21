@@ -195,8 +195,11 @@ export default function Hero() {
               alt=""
               fill
               priority
-              quality={60}
-              sizes="(min-width: 1025px) 64vw, (min-width: 768px) 80vw, 110vw"
+              // The portrait is the page's focal point: high quality, and sizes
+              // match the rendered width (≈64vw desktop, ≈107vw tablet, ≈141vw
+              // mobile) so the browser never picks a file that is too small.
+              quality={90}
+              sizes="(min-width: 1025px) 64vw, (min-width: 768px) 110vw, 145vw"
               className="object-contain saturate-[0.9] contrast-[1.06] [mask-image:linear-gradient(to_bottom,black_62%,transparent_97%)]"
             />
           </div>

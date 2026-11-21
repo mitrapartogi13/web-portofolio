@@ -17,7 +17,9 @@ export const site = {
     sideTop: ["Competitive", "Programmer"],
     sideBottom: ["Informatics", "Engineer, ITS"],
     // Cut-out portrait (transparent background); lights are added in CSS.
-    image: "/hero.webp",
+    // High-res lossless master (3764×6688): next/image encodes it once, so
+    // it stays sharp on retina screens. hero-mask.png must match its alpha.
+    image: "/formal-enhanced.png",
   },
 
   work: {
