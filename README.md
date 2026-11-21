@@ -39,9 +39,11 @@ pnpm build && pnpm start
   the portrait fades in first, then the title letters, side lines and header follow.
 - Selected Projects is a scroll-driven timeline: the line's head sits at 62% of the viewport and
   toggles `.in` on each item as it passes the node; nodes are buttons that jump to their project.
-- Experience is a film reel of years, newest first (`site.experience.years`). Scrolling plays one
-  year's items (list rail + stacked cards), then turns the reel to the next year; the tilted side
-  frames are buttons that jump to their year. Section height grows with the number of items.
+- Experience is a looping film reel of years, newest first (`site.experience.years`). Vertical
+  scroll plays the items of the year on screen (list rail + stacked cards), then moves on. Years
+  change by swipe / drag, horizontal trackpad scroll, arrow keys or a click on a side frame; the
+  reel follows a spring. Each year's `accent` colours its glow, rail, dots and watermark; the
+  centre frame tilts towards the cursor. `InViewObserver` also picks up headings mounted later.
 - `prefers-reduced-motion`: no Lenis, no wall drift, no scroll scaling, text shown immediately.
 
 ```
