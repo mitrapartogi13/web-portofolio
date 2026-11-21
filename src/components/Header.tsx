@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { subscribeScroll } from "@/lib/scroll";
 import { site } from "@/data/site";
 import CtaButton from "./CtaButton";
@@ -27,10 +27,14 @@ export default function Header() {
       id="header"
       className="fixed inset-x-0 top-0 z-[99] flex items-center justify-between px-[5vw] py-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:px-[5vw] md:py-[3vw] lg:px-[4vw] lg:py-[1.5vw]"
     >
-      <a href="#hero">
-        <Logo />
-      </a>
-      <CtaButton label={site.cta} />
+      {/* Inner wrapper takes the intro drop-in so it never fights the
+          hide-on-scroll transform on <header>. */}
+      <div className="intro-header flex w-full items-center justify-between" style={{ "--d": "1.4s" } as CSSProperties}>
+        <a href="#hero">
+          <Logo />
+        </a>
+        <CtaButton label={site.cta} />
+      </div>
     </header>
   );
 }

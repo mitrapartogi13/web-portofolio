@@ -1,7 +1,7 @@
 import { site } from "@/data/site";
 import { cn } from "@/lib/utils";
 
-/** Two-tone wordmark: first name white, last name dimmed (as ELENA/VOSS). */
+/** Two-tone wordmark: first name in ink, last name dimmed (as ELENA/VOSS). */
 export default function Logo({ size = "header" }: { size?: "header" | "footer" }) {
   return (
     <span
@@ -13,7 +13,7 @@ export default function Logo({ size = "header" }: { size?: "header" | "footer" }
       )}
     >
       {site.name.first}
-      <span className="text-white/50">{site.name.last}</span>
+      <span className="text-fg/45">{site.name.last}</span>
     </span>
   );
 }

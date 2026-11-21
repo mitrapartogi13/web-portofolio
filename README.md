@@ -18,8 +18,11 @@ pnpm build && pnpm start
 
 - **All copy:** `src/data/site.ts` (built from `src/data/portfolio.ts`). Items marked `DUMMY` or
   `PLACEHOLDER` must be replaced before publishing (testimonials, the 4th project, Instagram/X URLs).
-- **Hero photo:** `public/hero-portrait.webp` (crop of `profile-picture.webp`). A high-resolution
-  cut-out portrait gives the closest match to the reference.
+- **Hero photo:** `public/hero.webp` (cut-out, transparent background) plus `public/hero-mask.png`,
+  its alpha mask used for the stage lights. Regenerate the mask if you change the photo.
+- **Selected Projects (dummy):** `site.projects` in `src/data/site.ts`, images in `public/lab/*.webp`
+  (1600×1000). All six entries are placeholders; `public/projects/` must not be used because
+  `/projects/*` redirects to the home page.
 - **Project shots:** `public/work/*.webp` (1920×1080). They were rendered from HTML mocks; replace
   them with real screenshots at the same size.
 
@@ -30,10 +33,16 @@ pnpm build && pnpm start
 - `lenis` for smooth scroll and snap (portfolio cards). One rAF loop (`src/lib/scroll.ts`) drives
   every scroll-linked effect by writing styles directly — no React state per frame.
 - Headings and reveals are server components; a single `InViewObserver` adds the reveal classes.
+- Light theme ("Cool Mist") tokens in `globals.css`: `fg` #0f1419 (text, lines, accent fills), `base` #f1f3f6 (sections),
+  `paper` #ffffff (raised surfaces and cards), `wall` #dfe3ea (behind the hero card). `bg-brand` is the accent fill.
+- Hero load sequence (timed on the reference): `<html data-intro>` goes `wait → photo → text`;
+  the portrait fades in first, then the title letters, side lines and header follow.
+- Selected Projects is a scroll-driven timeline: the line's head sits at 62% of the viewport and
+  toggles `.in` on each item as it passes the node; nodes are buttons that jump to their project.
 - `prefers-reduced-motion`: no Lenis, no wall drift, no scroll scaling, text shown immediately.
 
 ```
-src/components/sections/   Hero, Portfolio, WhyWorkWithMe, Services, Awards, Trusted,
+src/components/sections/   Hero, Portfolio, WhyWorkWithMe, Services, Projects, Awards, Trusted,
                            Testimonials, Faq, Footer
 src/components/            Header, CtaButton, Logo, SplitText, Reveal, SmoothScroll, InViewObserver
 src/lib/                   scroll engine, Lenis bridge, utils

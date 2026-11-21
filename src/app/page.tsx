@@ -6,6 +6,7 @@ import Faq from "@/components/sections/Faq";
 import Footer from "@/components/sections/Footer";
 import Hero from "@/components/sections/Hero";
 import Portfolio from "@/components/sections/Portfolio";
+import Projects from "@/components/sections/Projects";
 import Services from "@/components/sections/Services";
 import Testimonials from "@/components/sections/Testimonials";
 import Trusted from "@/components/sections/Trusted";
@@ -21,6 +22,7 @@ export default function Home() {
         <Portfolio />
         <WhyWorkWithMe />
         <Services />
+        <Projects />
         <Awards />
         <Trusted />
         <Testimonials />

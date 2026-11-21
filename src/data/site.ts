@@ -16,8 +16,10 @@ export const site = {
     title: ["Turning Logic", "into Systems"],
     sideTop: ["Competitive", "Programmer"],
     sideBottom: ["Informatics", "Engineer, ITS"],
-    // Real photo; a high-res cut-out portrait would match the reference best.
-    image: "/hero-portrait.webp",
+    // Cut-out portrait (transparent background); lights are added in CSS.
+    // High-res lossless master (3764×6688): next/image encodes it once, so
+    // it stays sharp on retina screens. hero-mask.png must match its alpha.
+    image: "/formal-enhanced.png",
   },
 
   work: {
@@ -78,6 +80,70 @@ export const site = {
       { title: "Robotics & Vision", items: ["Python", "Computer Vision", "Robot Control", "Real-time Sensors"] },
       { title: "Data Science", items: ["Python", "Data Analysis", "Spreadsheets", "Visualisation"] },
       { title: "Teaching", items: ["Data Structures", "Operating Systems", "Programming Basics", "Lab Assessment"] },
+    ],
+  },
+
+  projects: {
+    title: ["Selected", "Projects"],
+    intro: "Things I have built outside class and competitions: machine learning, systems programming, algorithms and data.",
+    filters: ["All", "ML", "Systems", "Algorithms", "Data"],
+    // DUMMY: all six projects and their screenshots are placeholders.
+    // Replace name, summary, tags, year, href and image with real work.
+    items: [
+      {
+        name: "Sentinel",
+        summary: "Marine-debris detector trained on drone imagery, with a small labelling and evaluation dashboard.",
+        category: "ML",
+        tags: ["Python", "PyTorch", "Computer Vision"],
+        year: "2026",
+        image: "/lab/sentinel.webp",
+        href: "#",
+      },
+      {
+        name: "Kernel Lab",
+        summary: "A Unix-like shell with pipes, job control and a pluggable round-robin / MLFQ scheduler simulator.",
+        category: "Systems",
+        tags: ["C", "POSIX", "Concurrency"],
+        year: "2026",
+        image: "/lab/kernel.webp",
+        href: "#",
+      },
+      {
+        name: "Judge Lite",
+        summary: "Lightweight online judge: sandboxed runners with seccomp and cgroups, queue and live verdicts.",
+        category: "Systems",
+        tags: ["Go", "Docker", "Linux"],
+        year: "2025",
+        image: "/lab/judge.webp",
+        href: "#",
+      },
+      {
+        name: "Commute Pulse",
+        summary: "Ridership heatmaps and a gradient-boosted forecast of station load for a commuter line.",
+        category: "Data",
+        tags: ["Python", "Pandas", "LightGBM"],
+        year: "2025",
+        image: "/lab/commute.webp",
+        href: "#",
+      },
+      {
+        name: "Graph Atlas",
+        summary: "Interactive playground for shortest paths, SCCs, MST and max-flow, rendered on canvas.",
+        category: "Algorithms",
+        tags: ["TypeScript", "Canvas", "Graphs"],
+        year: "2025",
+        image: "/lab/atlas.webp",
+        href: "#",
+      },
+      {
+        name: "Catatan",
+        summary: "Offline-first study notes and focus timer app with conflict-free sync.",
+        category: "Data",
+        tags: ["Flutter", "SQLite", "Sync"],
+        year: "2024",
+        image: "/lab/catatan.webp",
+        href: "#",
+      },
     ],
   },
 
