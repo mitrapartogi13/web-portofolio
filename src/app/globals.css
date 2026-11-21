@@ -215,6 +215,16 @@ html.lenis body {
   opacity: 1;
   transform: none;
 }
+/* Experience reel: dots follow each year's progress (toggled by script). */
+.xp-dot {
+  border-color: rgb(15 20 25 / 0.35);
+  background: var(--color-paper);
+  transition: background-color 0.5s, border-color 0.5s;
+}
+.xp-dot.on {
+  border-color: var(--color-fg);
+  background: var(--color-fg);
+}
 .tl-dot {
   transform: scale(0);
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);

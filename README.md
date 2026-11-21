@@ -30,7 +30,7 @@ pnpm build && pnpm start
 
 - Three fluid canvases like the reference, sizes in `vw`: mobile `< 768px` (390 design),
   tablet `768–1024px` (768 design), desktop `≥ 1025px` (1440 design; custom `lg` breakpoint).
-- `lenis` for smooth scroll and snap (portfolio cards). One rAF loop (`src/lib/scroll.ts`) drives
+- `lenis` for smooth scroll and snap (experience cards). One rAF loop (`src/lib/scroll.ts`) drives
   every scroll-linked effect by writing styles directly — no React state per frame.
 - Headings and reveals are server components; a single `InViewObserver` adds the reveal classes.
 - Light theme ("Cool Mist") tokens in `globals.css`: `fg` #0f1419 (text, lines, accent fills), `base` #f1f3f6 (sections),
@@ -39,10 +39,13 @@ pnpm build && pnpm start
   the portrait fades in first, then the title letters, side lines and header follow.
 - Selected Projects is a scroll-driven timeline: the line's head sits at 62% of the viewport and
   toggles `.in` on each item as it passes the node; nodes are buttons that jump to their project.
+- Experience is a film reel of years, newest first (`site.experience.years`). Scrolling plays one
+  year's items (list rail + stacked cards), then turns the reel to the next year; the tilted side
+  frames are buttons that jump to their year. Section height grows with the number of items.
 - `prefers-reduced-motion`: no Lenis, no wall drift, no scroll scaling, text shown immediately.
 
 ```
-src/components/sections/   Hero, Portfolio, WhyWorkWithMe, Services, Projects, Awards, Trusted,
+src/components/sections/   Hero, Experience, WhyWorkWithMe, Services, Projects, Awards, Trusted,
                            Testimonials, Faq, Footer
 src/components/            Header, CtaButton, Logo, SplitText, Reveal, SmoothScroll, InViewObserver
 src/lib/                   scroll engine, Lenis bridge, utils
