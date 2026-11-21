@@ -113,8 +113,15 @@ export default function Projects() {
 
       <div ref={trackRef} className="relative mt-[12vw] md:mt-[8vw] lg:mt-[6vw]">
         {/* Rail, progress fill and the moving head */}
-        <div aria-hidden className="absolute inset-y-0 left-[3vw] w-px bg-fg/12 md:left-1/2" />
-        <div ref={fillRef} aria-hidden className="absolute inset-y-0 left-[3vw] w-px origin-top scale-y-0 bg-fg md:left-1/2" />
+        <div aria-hidden className="absolute inset-y-0 left-[3vw] w-[2px] -translate-x-1/2 bg-fg/12 md:left-1/2" />
+        {/* Initial scale inline: a `scale-y-0` class sets the separate CSS
+            `scale` property, which would pin the fill at 0 height. */}
+        <div
+          ref={fillRef}
+          aria-hidden
+          className="absolute inset-y-0 left-[3vw] w-[2px] -translate-x-1/2 origin-top bg-fg md:left-1/2"
+          style={{ transform: "scaleY(0)" }}
+        />
         <div
           ref={tipRef}
           aria-hidden

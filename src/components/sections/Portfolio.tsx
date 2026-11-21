@@ -125,11 +125,14 @@ export default function Portfolio() {
         <div className="flex w-full flex-col items-center gap-[8vw] md:gap-[5vw] lg:flex-row lg:gap-[4vw]">
           {/* Index with progress rail */}
           <div className="relative w-full lg:w-[21.33vw] lg:shrink-0">
-            <div aria-hidden className="absolute top-[7vw] left-1 h-[63vw] w-px bg-fg/15 md:top-[3.5vw] md:h-[33vw] lg:top-[2.75vw] lg:h-[21vw]" />
+            <div aria-hidden className="absolute top-[7vw] left-[3.5px] h-[63vw] w-[3px] rounded-full bg-fg/15 md:top-[3.5vw] md:h-[33vw] lg:top-[2.75vw] lg:h-[21vw]" />
             <div
               ref={railRef}
               aria-hidden
-              className="absolute top-[7vw] left-1 h-[63vw] w-px origin-top scale-y-0 bg-fg md:top-[3.5vw] md:h-[33vw] lg:top-[2.75vw] lg:h-[21vw]"
+              // Initial scale as inline transform: a `scale-y-0` class would set
+              // the separate CSS `scale` property and pin the fill at 0 height.
+              className="absolute top-[7vw] left-[3.5px] h-[63vw] w-[3px] rounded-full origin-top bg-fg md:top-[3.5vw] md:h-[33vw] lg:top-[2.75vw] lg:h-[21vw]"
+              style={{ transform: "scaleY(0)" }}
             />
             <ol className="flex flex-col">
               {items.map((item, i) => (
