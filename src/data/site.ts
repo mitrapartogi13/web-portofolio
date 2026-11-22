@@ -177,7 +177,7 @@ export const site = {
         category: "Web",
         tags: ["Next.js", "TypeScript"],
         year: "2026",
-        image: "/images/projects/km-its.webp",
+        image: "/images/projects/projects-km-its.webp",
         href: "#",
       },
       {
@@ -196,7 +196,7 @@ export const site = {
         category: "AI",
         tags: ["AI"],
         year: "2026",
-        image: "/images/projects/senopati.webp",
+        image: "/images/projects/projects-senopati-ai.webp",
         href: "#",
       },
     ],
