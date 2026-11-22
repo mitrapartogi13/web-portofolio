@@ -4,7 +4,7 @@
  * equivalent exists. Anything marked DUMMY / PLACEHOLDER must be replaced
  * before the site is published.
  */
-import { achievements, personalInfo, projects } from "./portfolio";
+import { personalInfo, projects } from "./portfolio";
 
 export const site = {
   name: { first: "MITRA", last: "PARTOGI" },
@@ -55,44 +55,45 @@ export const site = {
 
   experience: {
     title: ["Experience"],
-    // DUMMY: placeholder roles and images per year, newest year first.
+    // From the CV (work + organisations), grouped by start year, newest first.
     // accent: each year's own colour (glow, rail, dots, year numerals).
-    // Replace with real entries; each year can hold any number of items.
+    // PLACEHOLDER images: swap in real photos per role.
     years: [
       {
         year: "2026",
         accent: "#5b5bd6",
         items: [
-          { name: "Asisten Dosen Struktur Data", tags: ["Teaching", "C / C++"], image: "/work/astar.webp" },
-          { name: "Asisten Dosen Sistem Operasi", tags: ["Teaching", "Linux"], image: "/lab/kernel.webp" },
-          { name: "Sentinel Research", tags: ["Machine Learning", "PyTorch"], image: "/lab/sentinel.webp" },
+          { name: "Frontend Developer", tags: ["BEM ITS", "Next.js", "TypeScript"], image: "/lab/atlas.webp" },
+          { name: "Laboratory Administrator", tags: ["Algorithms & Programming Lab, ITS"], image: "/work/astar.webp" },
+          { name: "Junior Frontend Developer", tags: ["Dinas Pendidikan Jatim", "Next.js", "React"], image: "/lab/commute.webp" },
+          { name: "Expert Staff, Schematics NPC", tags: ["Schematics ITS 2026", "Problem Setting"], image: "/work/schematics.webp" },
+          { name: "TA, Data Structures", tags: ["ITS", "C / C++"], image: "/lab/judge.webp" },
+          { name: "TA, Operating Systems", tags: ["ITS", "Linux", "FUSE"], image: "/lab/kernel.webp" },
         ],
       },
       {
         year: "2025",
         accent: "#e0602b",
         items: [
-          { name: "Schematics NPC 2025", tags: ["Problem Setting", "C++"], image: "/work/schematics.webp" },
-          { name: "Asisten Dosen Dasar Pemrograman", tags: ["Teaching", "C"], image: "/lab/judge.webp" },
-          { name: "Juara 1 PINGFEST", tags: ["Competitive Programming"], image: "/lab/atlas.webp" },
+          { name: "TA, Programming Fundamentals", tags: ["ITS", "C"], image: "/lab/catatan.webp" },
+          { name: "Staff Mentor", tags: ["INCLENATION 2025", "FTEIC ITS"], image: "/lab/commute.webp" },
+          { name: "NPC Staff", tags: ["Schematics ITS 2025", "Problem Setting"], image: "/work/schematics.webp" },
         ],
       },
       {
         year: "2024",
         accent: "#0e8f8a",
         items: [
-          { name: "Roboboat Barunastra", tags: ["Vision", "Robot Control"], image: "/work/roboboat.webp" },
-          { name: "International Brain Challenge", tags: ["Logic", "Problem Solving"], image: "/lab/commute.webp" },
-          { name: "Informatika ITS", tags: ["Started S1"], image: "/lab/catatan.webp" },
+          { name: "Programming Intern", tags: ["Barunastra ITS", "ROS 2", "OpenCV"], image: "/work/roboboat.webp" },
+          { name: "NLC Staff Intern", tags: ["Schematics ITS 2024"], image: "/work/schematics.webp" },
         ],
       },
       {
-        year: "2023",
+        year: "2022",
         accent: "#c0367a",
         items: [
-          { name: "DHELIBELS", tags: ["Data Analysis", "Energy"], image: "/work/dhelibels.webp" },
-          { name: "Duta Hemat Energi Jatim", tags: ["Award", "KESDM RI"], image: "/work/dhelibels.webp" },
-          { name: "APEC Youngsters Forum", tags: ["Main Speaker"], image: "/lab/commute.webp" },
+          { name: "Energy Saving Ambassador", tags: ["DHELIBELS", "SMAN 15 Surabaya"], image: "/work/dhelibels.webp" },
+          { name: "Vice Chair", tags: ["SKK Libels", "SMAN 15 Surabaya"], image: "/lab/sentinel.webp" },
         ],
       },
     ],
@@ -167,63 +168,36 @@ export const site = {
 
   projects: {
     title: ["Selected", "Projects"],
-    intro: "Things I have built outside class and competitions: machine learning, systems programming, algorithms and data.",
-    filters: ["All", "ML", "Systems", "Algorithms", "Data"],
-    // DUMMY: all six projects and their screenshots are placeholders.
-    // Replace name, summary, tags, year, href and image with real work.
+    intro: "Platforms I have built and maintained: web systems for the ITS student community and for East Java's school admissions, and an AI project on BPJS claims.",
+    filters: ["All", "Web", "AI"],
+    // From the CV. PLACEHOLDER: SENOPATI summary, all images, and href ("#").
     items: [
       {
-        name: "Sentinel",
-        summary: "Marine-debris detector trained on drone imagery, with a small labelling and evaluation dashboard.",
-        category: "ML",
-        tags: ["Python", "PyTorch", "Computer Vision"],
+        name: "KM ITS Platforms",
+        summary: "Front end of three web platforms for the ITS student community: KM ITS Knowledge, News and Timeline. Content browsing and search, plus admin flows to publish news, manage knowledge sources and review event agendas.",
+        category: "Web",
+        tags: ["Next.js", "TypeScript"],
         year: "2026",
-        image: "/lab/sentinel.webp",
-        href: "#",
-      },
-      {
-        name: "Kernel Lab",
-        summary: "A Unix-like shell with pipes, job control and a pluggable round-robin / MLFQ scheduler simulator.",
-        category: "Systems",
-        tags: ["C", "POSIX", "Concurrency"],
-        year: "2026",
-        image: "/lab/kernel.webp",
-        href: "#",
-      },
-      {
-        name: "Judge Lite",
-        summary: "Lightweight online judge: sandboxed runners with seccomp and cgroups, queue and live verdicts.",
-        category: "Systems",
-        tags: ["Go", "Docker", "Linux"],
-        year: "2025",
-        image: "/lab/judge.webp",
-        href: "#",
-      },
-      {
-        name: "Commute Pulse",
-        summary: "Ridership heatmaps and a gradient-boosted forecast of station load for a commuter line.",
-        category: "Data",
-        tags: ["Python", "Pandas", "LightGBM"],
-        year: "2025",
-        image: "/lab/commute.webp",
-        href: "#",
-      },
-      {
-        name: "Graph Atlas",
-        summary: "Interactive playground for shortest paths, SCCs, MST and max-flow, rendered on canvas.",
-        category: "Algorithms",
-        tags: ["TypeScript", "Canvas", "Graphs"],
-        year: "2025",
         image: "/lab/atlas.webp",
         href: "#",
       },
       {
-        name: "Catatan",
-        summary: "Offline-first study notes and focus timer app with conflict-free sync.",
-        category: "Data",
-        tags: ["Flutter", "SQLite", "Sync"],
-        year: "2024",
-        image: "/lab/catatan.webp",
+        name: "SPMB Jawa Timur",
+        summary: "Three platforms of East Java's school admission system (PPDB/SPMB): internal admin for offices and report cards, and the school portal, in a Next.js monorepo. Kept public and reliable through registration periods that serve hundreds of thousands of students.",
+        category: "Web",
+        tags: ["Next.js", "React", "TypeScript", "Monorepo"],
+        year: "2026",
+        image: "/lab/commute.webp",
+        href: "#",
+      },
+      {
+        name: "SENOPATI AI Klaim BPJS",
+        // PLACEHOLDER summary: replace with the real description.
+        summary: "An AI project for BPJS claims. Full write-up coming soon.",
+        category: "AI",
+        tags: ["AI"],
+        year: "2026",
+        image: "/lab/sentinel.webp",
         href: "#",
       },
     ],
@@ -231,11 +205,14 @@ export const site = {
 
   awards: {
     title: ["Awards and Contest", "Recognition"],
-    items: achievements.map((a, i) => ({
-      title: a.title.split(" - ")[0],
-      meta: `${a.year} - ${(a.title.split(" - ")[1] ?? a.organizer).toUpperCase()}`,
-      image: ["/work/schematics.webp", "/work/astar.webp", "/work/dhelibels.webp", "/work/roboboat.webp"][i % 4],
-    })),
+    // From the CV, newest first. PLACEHOLDER images.
+    items: [
+      { title: "1st Place, Competitive Programming", meta: "2026 - PINGFEST UNS", image: "/work/schematics.webp" },
+      { title: "1st Place, Competitive Programming", meta: "2025 - PINGFEST UNS", image: "/work/astar.webp" },
+      { title: "1st Place, International Brain Challenge", meta: "2024 - TELKOM UNIVERSITY", image: "/lab/atlas.webp" },
+      { title: "1st Place, Duta Hemat Energi Jawa Timur", meta: "2023 - IIEE, KESDM RI, APEC", image: "/work/dhelibels.webp" },
+      { title: "Main Speaker, APEC Youngsters Forum", meta: "2023 - IIEE, KESDM RI, APEC", image: "/lab/commute.webp" },
+    ],
   },
 
   trusted: {

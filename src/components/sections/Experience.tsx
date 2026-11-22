@@ -404,16 +404,16 @@ function YearFrame({ year }: { year: (typeof years)[number] }) {
 
       <div className="flex flex-col gap-[5vw] md:gap-[3vw] lg:flex-row lg:gap-[3vw]">
         {/* Index with progress rail */}
-        <div className="relative [--xp-row:19vw] md:[--xp-row:9vw] lg:w-[21vw] lg:shrink-0 lg:[--xp-row:6.6vw]">
+        <div className="relative [--xp-row:13vw] md:[--xp-row:7vw] lg:w-[21vw] lg:shrink-0 lg:[--xp-row:4.6vw]">
           <div
             aria-hidden
-            className="absolute top-[5vw] left-[3.5px] w-[3px] rounded-full bg-fg/15 md:top-[3vw] lg:top-[2.2vw]"
+            className="absolute top-[2.4vw] left-[3.5px] w-[3px] rounded-full bg-fg/15 md:top-[1.2vw] lg:top-[1.25vw]"
             style={{ height: `calc(${n - 1} * var(--xp-row))` }}
           />
           <div
             data-rail
             aria-hidden
-            className="xp-rail absolute top-[5vw] left-[3.5px] w-[3px] origin-top rounded-full md:top-[3vw] lg:top-[2.2vw]"
+            className="xp-rail absolute top-[2.4vw] left-[3.5px] w-[3px] origin-top rounded-full md:top-[1.2vw] lg:top-[1.25vw]"
             style={{ height: `calc(${n - 1} * var(--xp-row))`, transform: "scaleY(0)" }}
           />
           <ol className="flex flex-col">
@@ -427,9 +427,10 @@ function YearFrame({ year }: { year: (typeof years)[number] }) {
                     k === 0 && "on",
                   )}
                 />
-                <div>
-                  <h3 className="text-[4.6vw] leading-[1.4] md:text-[3.2vw] lg:text-[1.4vw]">{item.name}</h3>
-                  <p className="text-[3.6vw] leading-[1.5] text-fg/70 md:text-[2.3vw] lg:text-[0.95vw]">
+                {/* One line each: rows have a fixed height for the rail. */}
+                <div className="min-w-0">
+                  <h3 className="truncate text-[4.6vw] leading-[1.4] md:text-[3.2vw] lg:text-[1.4vw]">{item.name}</h3>
+                  <p className="truncate text-[3.6vw] leading-[1.5] text-fg/70 md:text-[2.3vw] lg:text-[0.95vw]">
                     {item.tags.join("  •  ")}
                   </p>
                 </div>
@@ -439,7 +440,7 @@ function YearFrame({ year }: { year: (typeof years)[number] }) {
         </div>
 
         {/* Stacked previews */}
-        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[3vw] md:rounded-[2vw] lg:aspect-[16/9] lg:rounded-[1.2vw]">
+        <div className="relative aspect-[2/1] w-full overflow-hidden rounded-[3vw] md:aspect-[16/10] md:rounded-[2vw] lg:aspect-[16/9] lg:rounded-[1.2vw]">
           {year.items.map((item, k) => (
             <div
               key={item.name}

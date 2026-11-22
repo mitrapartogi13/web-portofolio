@@ -83,7 +83,7 @@ export default function Awards() {
 
         <div className="relative" onPointerLeave={() => api.current?.leave()}>
           {items.map((item, i) => (
-            <div key={item.title} onPointerEnter={(e) => e.pointerType === "mouse" && api.current?.enter(i)}>
+            <div key={i} onPointerEnter={(e) => e.pointerType === "mouse" && api.current?.enter(i)}>
               <div
                 ref={(el) => {
                   rowRefs.current[i] = el;
@@ -113,7 +113,7 @@ export default function Awards() {
             >
               {items.map((item, i) => (
                 <div
-                  key={item.title}
+                  key={i}
                   ref={(el) => {
                     layerRefs.current[i] = el;
                   }}

@@ -20,9 +20,10 @@ pnpm build && pnpm start
   `PLACEHOLDER` must be replaced before publishing (testimonials, the 4th project, Instagram/X URLs).
 - **Hero photo:** `public/hero.webp` (cut-out, transparent background) plus `public/hero-mask.png`,
   its alpha mask used for the stage lights. Regenerate the mask if you change the photo.
-- **Selected Projects (dummy):** `site.projects` in `src/data/site.ts`, images in `public/lab/*.webp`
-  (1600×1000). All six entries are placeholders; `public/projects/` must not be used because
-  `/projects/*` redirects to the home page.
+- **Experience, Projects, Awards:** taken from the CV. Still placeholder: every image, the
+  SENOPATI summary and the project links (`href: "#"`). Project images live in
+  `public/lab/*.webp` (1600×1000); `public/projects/` must not be used because `/projects/*`
+  redirects to the home page.
 - **Project shots:** `public/work/*.webp` (1920×1080). They were rendered from HTML mocks; replace
   them with real screenshots at the same size.
 
