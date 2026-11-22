@@ -215,6 +215,51 @@ html.lenis body {
   opacity: 1;
   transform: none;
 }
+/* Custom cursor (CustomCursor.tsx). The native cursor is hidden only
+   once the script has seen a mouse move (html.has-cursor). */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+html.has-cursor :is(input, textarea, [contenteditable="true"]) {
+  cursor: text !important;
+}
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  will-change: transform;
+}
+html.has-cursor .custom-cursor {
+  opacity: 1;
+}
+.custom-cursor:is([data-hidden], [data-away], [data-off]) {
+  opacity: 0;
+}
+.custom-cursor-inner {
+  transform-origin: 0 0;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.custom-cursor-shape {
+  position: absolute;
+  width: 28px;
+  height: 32px;
+  opacity: 0;
+  transform: scale(0.75);
+  transform-origin: 50% 20%;
+  transition:
+    opacity 0.14s,
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.custom-cursor-shape.on {
+  opacity: 1;
+  transform: none;
+}
+
 /* Experience reel. Each frame sets --accent (its year's colour); the
    script sets --focus (1 = centred), --glare and --gx/--gy (cursor sheen). */
 .xp-reel {
@@ -369,6 +414,10 @@ html.lenis body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .custom-cursor-inner,
+  .custom-cursor-shape {
+    transition: none;
+  }
   .xp-hint {
     animation: none;
   }

@@ -1,3 +1,4 @@
+import CustomCursor from "@/components/CustomCursor";
 import Header from "@/components/Header";
 import InViewObserver from "@/components/InViewObserver";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -30,6 +31,7 @@ export default function Home() {
       </main>
       <Footer />
       <InViewObserver />
+      <CustomCursor />
     </>
   );
 }

@@ -44,6 +44,9 @@ pnpm build && pnpm start
   change by swipe / drag, horizontal trackpad scroll, arrow keys or a click on a side frame; the
   reel follows a spring. Each year's `accent` colours its glow, rail, dots and watermark; the
   centre frame tilts towards the cursor. `InViewObserver` also picks up headings mounted later.
+- Custom cursor (`src/components/CustomCursor.tsx`, mouse only): black outline, thin white inner
+  line, clear middle. Arrow → pointing hand on links and buttons, open hand / fist on
+  `[data-cursor="grab"]`, press squish and a small tilt with speed. Touch keeps native behaviour.
 - `prefers-reduced-motion`: no Lenis, no wall drift, no scroll scaling, text shown immediately.
 
 ```

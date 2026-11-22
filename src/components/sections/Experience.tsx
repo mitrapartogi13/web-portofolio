@@ -324,6 +324,7 @@ export default function Experience() {
         <div
           ref={reelRef}
           role="group"
+          data-cursor="grab"
           aria-roledescription="carousel"
           aria-label={`Experience by year, showing ${years[active].year}`}
           tabIndex={0}
