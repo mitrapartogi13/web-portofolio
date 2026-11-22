@@ -34,15 +34,18 @@ export default function Trusted() {
     const reduce = prefersReducedMotion();
     let top = 0;
     let height = 0;
-    let measuredAt = -1;
+    let measuredAt = "";
     return subscribeScroll((y) => {
       const section = sectionRef.current;
       if (!section) return;
       const vw = window.innerWidth;
-      if (measuredAt !== vw) {
+      // Re-measure when the page height changes too, not only the width:
+      // the Projects filter (or a hot reload) above shifts this section.
+      const key = `${vw}:${document.documentElement.scrollHeight}`;
+      if (measuredAt !== key) {
         top = docTop(section);
         height = section.offsetHeight;
-        measuredAt = vw;
+        measuredAt = key;
       }
       const p = clamp((y - top) / (height - window.innerHeight));
       const k = vw / 1440;
