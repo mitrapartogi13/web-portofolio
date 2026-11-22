@@ -122,14 +122,46 @@ export const site = {
 
   services: {
     // Tech stack, from the skills and roles on LinkedIn (linkedin.com/in/mitra-partogi).
+    // icon: a key of TechIcon (brand logos from simple-icons, others from lucide).
     title: ["Tech Stack", "I've Worked With"],
-    text: "The tools behind my day-to-day work: Next.js and TypeScript for the web platforms I build, C and C++ for algorithms, problem setting and teaching, and Python with ROS for robotics and computer vision.",
+    text: "The tools behind my day-to-day work: Next.js and TypeScript for the web platforms I build, and C and C++ for algorithms, problem setting and teaching.",
     cards: [
-      { title: "Front End", items: ["Next.js", "TypeScript", "React", "Web Platforms"] },
-      { title: "Languages", items: ["C", "C++", "Python", "TypeScript"] },
-      { title: "Algorithms & CP", items: ["Data Structures", "Graph Algorithms", "Problem Setting", "Competitive Programming"] },
-      { title: "Systems & Linux", items: ["Linux / Ubuntu", "Processes & Threads", "IPC", "FUSE"] },
-      { title: "Robotics & AI", items: ["Python", "Computer Vision", "ROS", "Robot Control"] },
+      {
+        title: "Front End",
+        items: [
+          { name: "Next.js", icon: "nextjs" },
+          { name: "TypeScript", icon: "typescript" },
+          { name: "React", icon: "react" },
+          { name: "Web Platforms", icon: "web" },
+        ],
+      },
+      {
+        title: "Languages",
+        items: [
+          { name: "C", icon: "c" },
+          { name: "C++", icon: "cpp" },
+          { name: "Python", icon: "python" },
+          { name: "TypeScript", icon: "typescript" },
+        ],
+      },
+      {
+        title: "Algorithms & CP",
+        items: [
+          { name: "Data Structures", icon: "ds" },
+          { name: "Graph Algorithms", icon: "graph" },
+          { name: "Problem Setting", icon: "problem" },
+          { name: "Competitive Programming", icon: "cp" },
+        ],
+      },
+      {
+        title: "Systems & Linux",
+        items: [
+          { name: "Linux / Ubuntu", icon: "ubuntu" },
+          { name: "Processes & Threads", icon: "process" },
+          { name: "IPC", icon: "ipc" },
+          { name: "FUSE", icon: "fs" },
+        ],
+      },
     ],
   },
 
