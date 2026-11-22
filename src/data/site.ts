@@ -57,18 +57,18 @@ export const site = {
     title: ["Experience"],
     // From the CV (work + organisations), grouped by start year, newest first.
     // accent: each year's own colour (glow, rail, dots, year numerals).
-    // PLACEHOLDER images: swap in real photos per role.
     years: [
       {
         year: "2026",
         accent: "#5b5bd6",
         items: [
-          { name: "Frontend Developer", tags: ["BEM ITS", "Next.js", "TypeScript"], image: "/images/experience/2026-bem-its.webp" },
-          { name: "Laboratory Administrator", tags: ["Algorithms & Programming Lab, ITS"], image: "/images/experience/2026-lab-admin.webp" },
-          { name: "Junior Frontend Developer", tags: ["Dinas Pendidikan Jatim", "Next.js", "React"], image: "/images/experience/2026-dinas-pendidikan.webp" },
+          { name: "Frontend Developer", tags: ["BEM ITS", "Next.js", "TypeScript"], image: "/images/experience/2026-exp-km-its.webp" },
+          { name: "Laboratory Administrator", tags: ["Algorithms & Programming Lab, ITS"], image: "/images/experience/2026-exp-lab-admin.webp" },
+          { name: "Junior Frontend Developer", tags: ["Dinas Pendidikan Jatim", "Next.js", "React"], image: "/images/experience/2026-exp-spmb-jatim.webp" },
           { name: "Expert Staff, Schematics NPC", tags: ["Schematics ITS 2026", "Problem Setting"], image: "/images/experience/2026-schematics-expert.webp" },
           { name: "TA, Data Structures", tags: ["ITS", "C / C++"], image: "/images/experience/2026-ta-data-structures.webp" },
           { name: "TA, Operating Systems", tags: ["ITS", "Linux", "FUSE"], image: "/images/experience/2026-ta-operating-systems.webp" },
+          { name: "TA, Programming Fundamentals", tags: ["ITS", "C"], image: "/images/experience/2026-ta-programming-fundamentals.webp" },
         ],
       },
       {
@@ -93,7 +93,6 @@ export const site = {
         accent: "#c0367a",
         items: [
           { name: "Energy Saving Ambassador", tags: ["DHELIBELS", "SMAN 15 Surabaya"], image: "/images/experience/2022-dhelibels.webp" },
-          { name: "Vice Chair", tags: ["SKK Libels", "SMAN 15 Surabaya"], image: "/images/experience/2022-skk-libels.webp" },
         ],
       },
     ],
