@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import InViewObserver from "@/components/InViewObserver";
 import SmoothScroll from "@/components/SmoothScroll";
 import Awards from "@/components/sections/Awards";
-import Faq from "@/components/sections/Faq";
+// import Faq from "@/components/sections/Faq";
 import Footer from "@/components/sections/Footer";
 import Hero from "@/components/sections/Hero";
 import Experience from "@/components/sections/Experience";
@@ -26,8 +26,8 @@ export default function Home() {
         <Projects />
         <Awards />
         <Trusted />
-        <Testimonials />
-        <Faq />
+        {/* <Testimonials /> */}
+        {/* <Faq /> */}
       </main>
       <Footer />
       <InViewObserver />
