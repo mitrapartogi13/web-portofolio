@@ -74,9 +74,10 @@ export default function Experience() {
         frame.style.setProperty("--gx", `${tilt.gx}%`);
         frame.style.setProperty("--gy", `${tilt.gy}%`);
 
-        // Inside the year: rail, dots and card stack follow the scroll.
+        // Inside the year: only the centred frame follows the scroll. Side
+        // frames rest on their first item and catch up while turning in.
         const n = years[i].items.length;
-        const local = clamp(u, 0, n - 1);
+        const local = clamp(u * focus, 0, n - 1);
         const rail = frame.querySelector<HTMLElement>("[data-rail]");
         if (rail) rail.style.transform = `scaleY(${n > 1 ? local / (n - 1) : 1})`;
         const seg = (k: number) => (k < 1 || k >= n ? 0 : clamp((local - (k - 1) - 0.2) / 0.6));
