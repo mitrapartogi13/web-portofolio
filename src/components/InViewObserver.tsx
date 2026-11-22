@@ -10,7 +10,6 @@ import { useEffect } from "react";
  */
 export default function InViewObserver() {
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>("[data-reveal], [data-split]");
     const show = (el: HTMLElement) => el.classList.add(el.hasAttribute("data-split") ? "split-in" : "in");
 
     const io = new IntersectionObserver(
@@ -25,12 +24,24 @@ export default function InViewObserver() {
       { rootMargin: "0px 0px -12% 0px" },
     );
 
-    els.forEach((el) => {
-      const mode = el.dataset.reveal ?? el.dataset.split;
-      if (mode === "mount") requestAnimationFrame(() => show(el));
-      else if (mode !== "manual") io.observe(el);
-    });
-    return () => io.disconnect();
+    // Elements added later (client re-renders, hot reload) are picked up too;
+    // otherwise a heading mounted after this effect would stay hidden.
+    const seen = new WeakSet<Element>();
+    const scan = () =>
+      document.querySelectorAll<HTMLElement>("[data-reveal], [data-split]").forEach((el) => {
+        if (seen.has(el)) return;
+        seen.add(el);
+        const mode = el.dataset.reveal ?? el.dataset.split;
+        if (mode === "mount") requestAnimationFrame(() => show(el));
+        else if (mode !== "manual") io.observe(el);
+      });
+    scan();
+    const mo = new MutationObserver(scan);
+    mo.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      mo.disconnect();
+      io.disconnect();
+    };
   }, []);
 
   return null;

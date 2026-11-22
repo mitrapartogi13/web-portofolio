@@ -1,3 +1,4 @@
+import CustomCursor from "@/components/CustomCursor";
 import Header from "@/components/Header";
 import InViewObserver from "@/components/InViewObserver";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -5,7 +6,7 @@ import Awards from "@/components/sections/Awards";
 import Faq from "@/components/sections/Faq";
 import Footer from "@/components/sections/Footer";
 import Hero from "@/components/sections/Hero";
-import Portfolio from "@/components/sections/Portfolio";
+import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
 import Services from "@/components/sections/Services";
 import Testimonials from "@/components/sections/Testimonials";
@@ -19,7 +20,7 @@ export default function Home() {
       <Header />
       <main id="main">
         <Hero />
-        <Portfolio />
+        <Experience />
         <WhyWorkWithMe />
         <Services />
         <Projects />
@@ -30,6 +31,7 @@ export default function Home() {
       </main>
       <Footer />
       <InViewObserver />
+      <CustomCursor />
     </>
   );
 }

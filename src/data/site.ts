@@ -49,6 +49,51 @@ export const site = {
     ],
   },
 
+  experience: {
+    title: ["Experience"],
+    // DUMMY: placeholder roles and images per year, newest year first.
+    // accent: each year's own colour (glow, rail, dots, year numerals).
+    // Replace with real entries; each year can hold any number of items.
+    years: [
+      {
+        year: "2026",
+        accent: "#5b5bd6",
+        items: [
+          { name: "Asisten Dosen Struktur Data", tags: ["Teaching", "C / C++"], image: "/work/astar.webp" },
+          { name: "Asisten Dosen Sistem Operasi", tags: ["Teaching", "Linux"], image: "/lab/kernel.webp" },
+          { name: "Sentinel Research", tags: ["Machine Learning", "PyTorch"], image: "/lab/sentinel.webp" },
+        ],
+      },
+      {
+        year: "2025",
+        accent: "#e0602b",
+        items: [
+          { name: "Schematics NPC 2025", tags: ["Problem Setting", "C++"], image: "/work/schematics.webp" },
+          { name: "Asisten Dosen Dasar Pemrograman", tags: ["Teaching", "C"], image: "/lab/judge.webp" },
+          { name: "Juara 1 PINGFEST", tags: ["Competitive Programming"], image: "/lab/atlas.webp" },
+        ],
+      },
+      {
+        year: "2024",
+        accent: "#0e8f8a",
+        items: [
+          { name: "Roboboat Barunastra", tags: ["Vision", "Robot Control"], image: "/work/roboboat.webp" },
+          { name: "International Brain Challenge", tags: ["Logic", "Problem Solving"], image: "/lab/commute.webp" },
+          { name: "Informatika ITS", tags: ["Started S1"], image: "/lab/catatan.webp" },
+        ],
+      },
+      {
+        year: "2023",
+        accent: "#c0367a",
+        items: [
+          { name: "DHELIBELS", tags: ["Data Analysis", "Energy"], image: "/work/dhelibels.webp" },
+          { name: "Duta Hemat Energi Jatim", tags: ["Award", "KESDM RI"], image: "/work/dhelibels.webp" },
+          { name: "APEC Youngsters Forum", tags: ["Main Speaker"], image: "/lab/commute.webp" },
+        ],
+      },
+    ],
+  },
+
   why: {
     title: ["Why Work With Me?"],
     subtitle: "Algorithms first, everything else on top",
