@@ -5,9 +5,9 @@ import { site } from "@/data/site";
 import { clamp, docTop, prefersReducedMotion, subscribeScroll } from "@/lib/scroll";
 import SplitText from "../SplitText";
 
-// Two waves of the six wordmarks, like the reference's 12 logos.
+// Two waves of the six wordmarks (12 in all).
 const logos = [...site.trusted.logos, ...site.trusted.logos];
-// x/y jitter in reference px (at 1440 wide), taken from its transforms.
+// x/y jitter in px at 1440 wide, scaled with the viewport.
 const jitter = [
   [-110, 85], [74, 179], [89, -1], [-144, 26], [-107, 77], [-116, 103],
   [157, 101], [154, -28], [-96, -144], [-127, -121], [-35, 73], [-96, 71],
@@ -24,7 +24,7 @@ function opacityAt(z: number) {
 /**
  * 240vh section: sticky headline with a second sticky layer on top where
  * wordmarks fly from z = -2200 towards the viewer (perspective 5040px),
- * blurring by 10 × (1 − opacity), as measured on the reference.
+ * blurring by 10 × (1 − opacity).
  */
 export default function Trusted() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -34,15 +34,18 @@ export default function Trusted() {
     const reduce = prefersReducedMotion();
     let top = 0;
     let height = 0;
-    let measuredAt = -1;
+    let measuredAt = "";
     return subscribeScroll((y) => {
       const section = sectionRef.current;
       if (!section) return;
       const vw = window.innerWidth;
-      if (measuredAt !== vw) {
+      // Re-measure when the page height changes too, not only the width:
+      // the Projects filter (or a hot reload) above shifts this section.
+      const key = `${vw}:${document.documentElement.scrollHeight}`;
+      if (measuredAt !== key) {
         top = docTop(section);
         height = section.offsetHeight;
-        measuredAt = vw;
+        measuredAt = key;
       }
       const p = clamp((y - top) / (height - window.innerHeight));
       const k = vw / 1440;

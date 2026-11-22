@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { site } from "@/data/site";
 import { clamp, docTop, lerp, prefersReducedMotion, subscribeScroll } from "@/lib/scroll";
 import SplitText from "../SplitText";
 import Reveal from "../Reveal";
+import RollText from "../RollText";
+import TechIcon from "../TechIcon";
+import { useEntryFill } from "@/lib/useEntryFill";
 
 /**
  * 275vh section. Intro on top, then a sticky row of cards that travels from
  * just off the right edge (104.6vw) to its end position, starting 0.2vh
- * before the section top and lasting 1.97vh (fitted to the reference).
+ * before the section top and lasting 1.97vh.
  */
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -58,44 +60,62 @@ export default function Services() {
           style={{ transform: "translateX(104.6vw)" }}
         >
           {site.services.cards.map((card) => (
-            <a
-              key={card.title}
-              href="#contact"
-              className="group relative flex h-[85vw] w-[75vw] shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-fg/12 bg-paper p-[5vw] transition-colors duration-500 group-hover:text-paper hover:text-paper md:h-[65vw] md:w-[55vw] md:p-[3vw] lg:h-[30vw] lg:w-[27vw] lg:p-[1.6vw]"
-            >
-              <div aria-hidden className="bg-brand absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative flex justify-end">
-                <span className="relative grid size-[9vw] place-items-center overflow-hidden rounded-full border border-fg/25 transition-colors duration-300 group-hover:border-transparent group-hover:bg-paper md:size-[7vw] lg:size-[3vw]">
-                  <ArrowUpRight
-                    aria-hidden
-                    className="size-[45%] transition-transform duration-300 ease-out group-hover:translate-x-[150%] group-hover:-translate-y-[150%] group-hover:text-fg"
-                  />
-                  <ArrowUpRight
-                    aria-hidden
-                    className="absolute size-[45%] -translate-x-[150%] translate-y-[150%] text-fg transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
-                  />
-                </span>
-              </div>
-              <div className="relative">
-                <h3 className="mb-[3vw] text-[6.5vw] leading-[1.5] md:mb-[2vw] md:text-[5vw] lg:mb-[1vw] lg:text-[2.5vw]">
-                  {card.title}
-                </h3>
-                <ul className="pl-[1.5vw] lg:pl-[0.5vw]">
-                  {card.items.map((item) => (
-                    <li
-                      key={item}
-                      className="mb-[1.8vw] flex items-center gap-[2.5vw] text-[4vw] leading-[1.5] last:mb-0 md:mb-[1vw] md:gap-[1.4vw] md:text-[3vw] lg:mb-[0.4vw] lg:gap-[0.7vw] lg:text-[1.25vw]"
-                    >
-                      <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-current" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </a>
+            <StackCard key={card.title} card={card} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * One tech stack card. Not a link: on hover an ink fill blooms from the
+ * cursor's entry point (same as the "Get in Touch" button), the title
+ * letters roll into a light copy, and the logos and list turn light.
+ */
+function StackCard({ card }: { card: (typeof site.services.cards)[number] }) {
+  const { fillRef, handlers } = useEntryFill();
+  return (
+    <div
+      onPointerEnter={handlers.onPointerEnter}
+      onPointerLeave={handlers.onPointerLeave}
+      className="group relative flex h-[85vw] w-[75vw] shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-fg/12 bg-paper p-[5vw] md:h-[65vw] md:w-[55vw] md:p-[3vw] lg:h-[30vw] lg:w-[27vw] lg:p-[1.6vw]"
+    >
+      <span
+        ref={fillRef}
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 size-0 rounded-full bg-fg"
+        style={{ transform: "translate(-50%, -50%) scale(0)" }}
+      />
+
+      {/* Logos of the card's tools */}
+      <ul aria-hidden className="relative flex flex-wrap gap-[2.5vw] md:gap-[1.4vw] lg:gap-[0.6vw]">
+        {card.items.map((item) => (
+          <li
+            key={item.name}
+            className="grid size-[12vw] place-items-center rounded-full border border-fg/15 text-fg transition-colors duration-500 group-hover:border-paper/25 group-hover:text-paper md:size-[8vw] lg:size-[3.4vw]"
+          >
+            <TechIcon name={item.icon} className="size-[45%]" />
+          </li>
+        ))}
+      </ul>
+
+      <div className="relative">
+        <h3 className="mb-[3vw] text-[6.5vw] leading-[1.5] md:mb-[2vw] md:text-[5vw] lg:mb-[1vw] lg:text-[2.5vw]">
+          <RollText text={card.title} fromClass="text-fg" toClass="text-paper" />
+        </h3>
+        <ul className="pl-[1.5vw] text-fg transition-colors duration-500 group-hover:text-paper lg:pl-[0.5vw]">
+          {card.items.map((item) => (
+            <li
+              key={item.name}
+              className="mb-[1.8vw] flex items-center gap-[2.5vw] text-[4vw] leading-[1.5] last:mb-0 md:mb-[1vw] md:gap-[1.4vw] md:text-[3vw] lg:mb-[0.4vw] lg:gap-[0.7vw] lg:text-[1.25vw]"
+            >
+              <TechIcon name={item.icon} className="size-[1.1em] shrink-0" />
+              {item.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }

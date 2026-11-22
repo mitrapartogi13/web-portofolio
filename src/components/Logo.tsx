@@ -1,7 +1,7 @@
 import { site } from "@/data/site";
 import { cn } from "@/lib/utils";
 
-/** Two-tone wordmark: first name in ink, last name dimmed (as ELENA/VOSS). */
+/** Two-tone wordmark: first name in ink, last name dimmed. */
 export default function Logo({ size = "header" }: { size?: "header" | "footer" }) {
   return (
     <span

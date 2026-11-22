@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import SplitText from "../SplitText";
 import Reveal from "../Reveal";
 
-/** Accordion; the first item starts open, like the reference. */
+/** Accordion; the first item starts open. */
 export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 

@@ -9,7 +9,7 @@ import Reveal from "../Reveal";
 
 const items = site.awards.items;
 
-// Timings fitted to positions sampled every ~35ms on the reference.
+// Card and image timings.
 const EASE_OUT_CUBIC = "cubic-bezier(0.33, 1, 0.68, 1)";
 const CARD_MOVE = "transform 660ms cubic-bezier(0.33, 1.53, 0.69, 0.99)"; // back-out, ~9% overshoot
 const LAYER_IN = `transform 440ms ${EASE_OUT_CUBIC}`;
@@ -83,7 +83,7 @@ export default function Awards() {
 
         <div className="relative" onPointerLeave={() => api.current?.leave()}>
           {items.map((item, i) => (
-            <div key={item.title} onPointerEnter={(e) => e.pointerType === "mouse" && api.current?.enter(i)}>
+            <div key={i} onPointerEnter={(e) => e.pointerType === "mouse" && api.current?.enter(i)}>
               <div
                 ref={(el) => {
                   rowRefs.current[i] = el;
@@ -113,7 +113,7 @@ export default function Awards() {
             >
               {items.map((item, i) => (
                 <div
-                  key={item.title}
+                  key={i}
                   ref={(el) => {
                     layerRefs.current[i] = el;
                   }}

@@ -1,7 +1,7 @@
 import type { CSSProperties, ElementType } from "react";
 
 interface SplitTextProps {
-  /** One string per visual line; lines break explicitly like the reference. */
+  /** One string per visual line; lines break explicitly. */
   lines: readonly string[];
   as?: ElementType;
   className?: string;
@@ -16,8 +16,8 @@ interface SplitTextProps {
 }
 
 /**
- * Letter-by-letter rise, each letter clipped by its own mask (the reference
- * pads the mask by 0.04em so side bearings are not cut). Server-rendered;
+ * Letter-by-letter rise, each letter clipped by its own mask (padded
+ * by 0.04em so side bearings are not cut). Server-rendered;
  * InViewObserver adds `split-in`. Screen readers get the plain sentence.
  */
 export default function SplitText({
