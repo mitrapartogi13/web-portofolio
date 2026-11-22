@@ -14,8 +14,12 @@ export const site = {
 
   hero: {
     title: ["Turning Logic", "into Systems"],
-    sideTop: ["Competitive", "Programmer"],
-    sideBottom: ["Informatics", "Engineer, ITS"],
+    // Side roles next to the title: one block per role, one string per line.
+    side: [
+      ["Front End", "Developer"],
+      ["Competitive", "Programmer"],
+      ["DS AI", "Enthusiast"],
+    ],
     // Cut-out portrait (transparent background); lights are added in CSS.
     // High-res lossless master (3764×6688): next/image encodes it once, so
     // it stays sharp on retina screens. hero-mask.png must match its alpha.

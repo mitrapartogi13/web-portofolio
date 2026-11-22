@@ -224,8 +224,8 @@ export default function Hero() {
             lines={[site.hero.title.join(" ")]}
             className="hero-title text-[15vw] leading-[1.1] md:w-[56vw] md:text-[12vw] lg:w-[41.4vw] lg:text-[7.5vw]"
           />
-          <div className="mt-[6vw] flex flex-col-reverse gap-[7vw] text-[4.5vw] leading-[1.15] md:mt-[4vw] md:gap-[10.4vw] md:py-[2vw] md:text-[3.5vw] lg:mt-0 lg:flex-col lg:justify-between lg:gap-0 lg:text-right lg:text-[1.25vw]">
-            {[site.hero.sideTop, site.hero.sideBottom].map((lines, b) => (
+          <div className="mt-[6vw] flex flex-col gap-[7vw] text-[4.5vw] leading-[1.15] md:mt-[4vw] md:gap-[10.4vw] md:py-[2vw] md:text-[3.5vw] lg:mt-0 lg:flex-col lg:justify-between lg:gap-0 lg:text-right lg:text-[1.25vw]">
+            {site.hero.side.map((lines, b) => (
               <p key={b}>
                 {lines.map((line, l) => (
                   <span key={l} className="intro-line">
