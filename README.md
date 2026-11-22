@@ -21,9 +21,9 @@ pnpm build && pnpm start
 - **Hero photo:** `public/hero.webp` (cut-out, transparent background) plus `public/hero-mask.png`,
   its alpha mask used for the stage lights. Regenerate the mask if you change the photo.
 - **Experience, Projects, Awards:** taken from the CV. Still placeholder: every image, the
-  SENOPATI summary and the project links (`href: "#"`). Project images live in
-  `public/lab/*.webp` (1600×1000); `public/projects/` must not be used because `/projects/*`
-  redirects to the home page.
+  SENOPATI summary and the project links (`href: "#"`). Images live in
+  `public/images/{experience,projects,awards}/`; see `public/images/README.md` for names and
+  sizes (replace a file under the same name).
 - **Project shots:** `public/work/*.webp` (1920×1080). They were rendered from HTML mocks; replace
   them with real screenshots at the same size.
 
