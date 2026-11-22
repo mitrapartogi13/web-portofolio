@@ -121,14 +121,15 @@ export const site = {
   },
 
   services: {
-    title: ["Engineering That", "Survives Real Load"],
-    text: "I focus on algorithmic efficiency, competitive programming and data science, and on building systems that stay correct when inputs grow, sensors get noisy and deadlines get close.",
+    // Tech stack, from the skills and roles on LinkedIn (linkedin.com/in/mitra-partogi).
+    title: ["Tech Stack", "I've Worked With"],
+    text: "The tools behind my day-to-day work: Next.js and TypeScript for the web platforms I build, C and C++ for algorithms, problem setting and teaching, and Python with ROS for robotics and computer vision.",
     cards: [
-      { title: "Algorithms & CP", items: ["C / C++", "Graph Theory", "Dynamic Programming", "Problem Setting"] },
-      { title: "Systems", items: ["Operating Systems", "Linux / Ubuntu", "C Programming", "Concurrency"] },
-      { title: "Robotics & Vision", items: ["Python", "Computer Vision", "Robot Control", "Real-time Sensors"] },
-      { title: "Data Science", items: ["Python", "Data Analysis", "Spreadsheets", "Visualisation"] },
-      { title: "Teaching", items: ["Data Structures", "Operating Systems", "Programming Basics", "Lab Assessment"] },
+      { title: "Front End", items: ["Next.js", "TypeScript", "React", "Web Platforms"] },
+      { title: "Languages", items: ["C", "C++", "Python", "TypeScript"] },
+      { title: "Algorithms & CP", items: ["Data Structures", "Graph Algorithms", "Problem Setting", "Competitive Programming"] },
+      { title: "Systems & Linux", items: ["Linux / Ubuntu", "Processes & Threads", "IPC", "FUSE"] },
+      { title: "Robotics & AI", items: ["Python", "Computer Vision", "ROS", "Robot Control"] },
     ],
   },
 
