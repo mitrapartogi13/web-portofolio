@@ -40,7 +40,7 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="relative overflow-hidden px-[5vw] pt-[20vw] md:pt-[10vw] lg:px-[4vw] lg:pt-[10vw]">
-      {/* Soft grey glow, recreated with gradients (the reference uses an SVG). */}
+      {/* Soft grey glow, drawn with gradients. */}
       <div
         aria-hidden
         className="absolute top-[38vw] left-1/2 h-[234vw] w-[500vw] -translate-x-1/2 md:top-[50vw] md:h-[46.9vw] md:w-full lg:top-[9.4vw] lg:h-[46.9vw]"
@@ -98,9 +98,6 @@ export default function Footer() {
             Copyright © {site.name.first[0]}
             {site.name.first.slice(1).toLowerCase()} {site.name.last[0]}
             {site.name.last.slice(1).toLowerCase()} {year}
-          </p>
-          <p>
-            Layout: <a href="https://elena-voss-portfolio-template-v3.21st.app/" className="hover:text-fg/60">Hyperiux</a>
           </p>
         </div>
       </div>

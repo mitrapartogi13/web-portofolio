@@ -9,7 +9,7 @@ import Reveal from "../Reveal";
 
 const items = site.awards.items;
 
-// Timings fitted to positions sampled every ~35ms on the reference.
+// Card and image timings.
 const EASE_OUT_CUBIC = "cubic-bezier(0.33, 1, 0.68, 1)";
 const CARD_MOVE = "transform 660ms cubic-bezier(0.33, 1.53, 0.69, 0.99)"; // back-out, ~9% overshoot
 const LAYER_IN = `transform 440ms ${EASE_OUT_CUBIC}`;

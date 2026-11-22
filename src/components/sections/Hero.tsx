@@ -7,13 +7,13 @@ import { clamp, docTop, easeInOutCubic, prefersReducedMotion, subscribeScroll } 
 import SplitText from "../SplitText";
 
 const work = site.work.items;
-// Same arrangement as the reference: column 1 = items 1,3; column 2 = items 2,4.
+// Arrangement: column 1 = items 1,3; column 2 = items 2,4.
 const columns = [
   { images: [work[0].image, work[2].image], dur: "10s", delay: "-6.1s" },
   { images: [work[1].image, work[3].image], dur: "18s", delay: "-6.1s" },
 ];
 
-// Photo box, same geometry as the reference (desktop shifted right so the
+// Photo box (desktop shifted right so the
 // face sits beside the headline). Shared by the photo and its light layers.
 const GEO =
   "absolute top-[calc(50vh_-_30vw)] left-[58vw] h-[250vw] w-[200vw] -translate-x-1/2 md:top-[calc(50vh_-_28vw)] md:left-[62vw] md:h-[190vw] md:w-[160vw] lg:top-[-16vh] lg:left-[57vw] lg:h-[180vh] lg:w-[180vw]";
@@ -33,8 +33,7 @@ const SILHOUETTE: CSSProperties = {
 
 /**
  * 300vh section. The backdrop card is sticky and shrinks from scale 1 to 0.5
- * over the first 2 viewport heights (easeInOutCubic, measured on the
- * reference), uncovering a wall of project shots drifting upwards.
+ * over the first 2 viewport heights (easeInOutCubic), uncovering a wall of project shots drifting upwards.
  */
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -42,7 +41,7 @@ export default function Hero() {
   const textRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
 
-  // Load sequence, timed on the reference: once the portrait has loaded it
+  // Load sequence: once the portrait has loaded it
   // fades in (1.4s); 1.1s later the title letters start rising one by one,
   // followed by the side lines and the header (delays in the markup / CSS).
   useEffect(() => {
@@ -102,10 +101,10 @@ export default function Hero() {
     });
   }, []);
 
-  // Mouse parallax, measured on the reference: the text row drifts up to
+  // Mouse parallax: the text row drifts up to
   // 12px and the portrait up to 30px against the pointer (offset normalised
   // to the viewport half-size), eased exponentially with τ = 660ms. It keeps
-  // its last position when the pointer leaves, like the reference.
+  // its last position when the pointer leaves.
   useEffect(() => {
     if (prefersReducedMotion()) return;
     const TAU = 660;

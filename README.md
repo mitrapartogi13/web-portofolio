@@ -1,9 +1,6 @@
 # Portfolio — Mitra Partogi
 
 Single-page portfolio built with Next.js 16 (App Router), React 19, Tailwind CSS v4 and TypeScript.
-The layout is a slice of the Elena Voss portfolio template by Hyperiux
-(<https://elena-voss-portfolio-template-v3.21st.app/>): structure, sizes, colours and motion were
-measured from the reference; copy, photos and project images are our own.
 
 ## Development
 
@@ -29,14 +26,14 @@ pnpm build && pnpm start
 
 ## How it is built
 
-- Three fluid canvases like the reference, sizes in `vw`: mobile `< 768px` (390 design),
+- Three fluid canvases, sizes in `vw`: mobile `< 768px` (390 design),
   tablet `768–1024px` (768 design), desktop `≥ 1025px` (1440 design; custom `lg` breakpoint).
 - `lenis` for smooth scroll and snap (experience cards). One rAF loop (`src/lib/scroll.ts`) drives
   every scroll-linked effect by writing styles directly — no React state per frame.
 - Headings and reveals are server components; a single `InViewObserver` adds the reveal classes.
 - Light theme ("Cool Mist") tokens in `globals.css`: `fg` #0f1419 (text, lines, accent fills), `base` #f1f3f6 (sections),
   `paper` #ffffff (raised surfaces and cards), `wall` #dfe3ea (behind the hero card). `bg-brand` is the accent fill.
-- Hero load sequence (timed on the reference): `<html data-intro>` goes `wait → photo → text`;
+- Hero load sequence: `<html data-intro>` goes `wait → photo → text`;
   the portrait fades in first, then the title letters, side lines and header follow.
 - Selected Projects is a scroll-driven timeline: the line's head sits at 62% of the viewport and
   toggles `.in` on each item as it passes the node; nodes are buttons that jump to their project.

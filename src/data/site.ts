@@ -1,7 +1,6 @@
 /**
- * All copy for the single-page slice. Structure mirrors the reference
- * template section by section; content comes from portfolio.ts where a real
- * equivalent exists. Anything marked DUMMY / PLACEHOLDER must be replaced
+ * All copy for the single page, section by section; content comes from
+ * portfolio.ts where a real equivalent exists. Anything marked DUMMY / PLACEHOLDER must be replaced
  * before the site is published.
  */
 import { personalInfo, projects } from "./portfolio";

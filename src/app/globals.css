@@ -1,8 +1,7 @@
 @import "tailwindcss";
 
 /*
- * Slice of the Elena Voss template layout (Hyperiux). Sizes follow the
- * reference's three fluid canvases, all in vw:
+ * Sizes follow three fluid canvases, all in vw:
  *   mobile  < 768px   (designed at 390)
  *   tablet  768–1024  (designed at 768)
  *   desktop ≥ 1025    (designed at 1440)
@@ -102,7 +101,7 @@ html.lenis body {
   animation-delay: var(--wall-delay);
 }
 
-/* Hero intro, timed on the reference: the photo fades in first (1.4s,
+/* Hero intro: the photo fades in first (1.4s,
    CSS "ease" fits the sampled curve), then the headline letters rise one
    by one, then the side lines, then the header drops in. Hero.tsx moves
    <html data-intro> from "wait" → "photo" → "text". Without JS the

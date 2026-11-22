@@ -12,7 +12,7 @@ import { useEntryFill } from "@/lib/useEntryFill";
 /**
  * 275vh section. Intro on top, then a sticky row of cards that travels from
  * just off the right edge (104.6vw) to its end position, starting 0.2vh
- * before the section top and lasting 1.97vh (fitted to the reference).
+ * before the section top and lasting 1.97vh.
  */
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
