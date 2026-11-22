@@ -22,6 +22,7 @@
 
   --font-*: initial;
   --font-sans: var(--font-host), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-anton), Impact, "Arial Narrow", sans-serif;
 
   /* Reference switches to the desktop layout at 1025px, not 1024px. */
   --breakpoint-lg: 64.0625rem;

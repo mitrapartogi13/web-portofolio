@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Host_Grotesk } from "next/font/google";
+import { Anton, Host_Grotesk } from "next/font/google";
 import "./globals.css";
 import { personalInfo } from "@/data/portfolio";
 
@@ -7,6 +7,14 @@ const hostGrotesk = Host_Grotesk({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-host",
+  display: "swap",
+});
+
+// Condensed display face for the hero name only.
+const anton = Anton({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-anton",
   display: "swap",
 });
 
@@ -24,7 +32,7 @@ export const viewport: Viewport = { themeColor: "#f1f3f6" };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     // data-intro drives the hero load sequence (see Hero.tsx / globals.css).
-    <html lang="en" className={hostGrotesk.variable} data-intro="wait" suppressHydrationWarning>
+    <html lang="en" className={`${hostGrotesk.variable} ${anton.variable}`} data-intro="wait" suppressHydrationWarning>
       <body>
         <noscript>
           <style>{`[data-intro] .intro-photo,[data-intro] .intro-header{opacity:1!important;transform:none!important}[data-intro] .intro-line>span,[data-intro] .split-letter{transform:none!important}`}</style>

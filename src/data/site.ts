@@ -12,7 +12,8 @@ export const site = {
   cta: "Get in Touch",
 
   hero: {
-    title: ["Turning Logic", "into Systems"],
+    // Small line above the name; the name itself comes from `name` above.
+    greeting: "Hi there! I'm",
     // Side roles next to the title: one block per role, one string per line.
     side: [
       ["Front End", "Developer"],

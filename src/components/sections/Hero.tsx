@@ -215,14 +215,29 @@ export default function Hero() {
           </div>
         </div>
 
-        <div ref={textRef} className="relative z-10 flex w-full flex-col will-change-transform lg:flex-row lg:justify-between">
-          <SplitText
-            as="h1"
-            trigger="manual"
-            stagger={0.045}
-            lines={[site.hero.title.join(" ")]}
-            className="hero-title text-[15vw] leading-[1.1] md:w-[56vw] md:text-[12vw] lg:w-[41.4vw] lg:text-[7.5vw]"
-          />
+        {/* Text is white with mix-blend-mode: difference, so it reads near
+            black on the light backdrop and flips to its opposite wherever it
+            crosses the photo (white on the black jacket, black on the shirt).
+            The blend sits on this wrapper: it is the stacking context (its
+            parallax transform), so a blend set further in would only see an
+            empty backdrop. */}
+        <div
+          ref={textRef}
+          className="relative z-10 flex w-full flex-col text-white mix-blend-difference will-change-transform lg:flex-row lg:justify-between"
+        >
+          <h1 aria-label={`${site.hero.greeting} ${site.name.first} ${site.name.last}`} className="hero-title">
+            <span aria-hidden className="intro-line text-[3.6vw] tracking-[0.3em] text-white/70 uppercase md:text-[2.2vw] lg:text-[1.15vw]">
+              <span style={{ "--d": "0s" } as CSSProperties}>{site.hero.greeting}</span>
+            </span>
+            <SplitText
+              as="span"
+              trigger="manual"
+              delay={0.15}
+              stagger={0.05}
+              lines={[site.name.first, site.name.last]}
+              className="mt-[3vw] block font-display text-[24vw] leading-[0.92] uppercase md:mt-[1.6vw] md:text-[19vw] lg:mt-[1.2vw] lg:text-[13vw]"
+            />
+          </h1>
           <div className="mt-[6vw] flex flex-col gap-[7vw] text-[4.5vw] leading-[1.15] md:mt-[4vw] md:gap-[10.4vw] md:py-[2vw] md:text-[3.5vw] lg:mt-0 lg:flex-col lg:justify-between lg:gap-0 lg:text-right lg:text-[1.25vw]">
             {site.hero.side.map((lines, b) => (
               <p key={b}>
