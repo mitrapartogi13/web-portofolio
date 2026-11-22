@@ -186,7 +186,7 @@ export const site = {
         category: "Web",
         tags: ["Next.js", "React", "TypeScript", "Monorepo"],
         year: "2026",
-        image: "/images/projects/spmb-jatim.webp",
+        image: "/images/projects/projects-spmb-jatim.webp",
         href: "#",
       },
       {
