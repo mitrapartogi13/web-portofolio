@@ -14,7 +14,7 @@ const description =
   "Portfolio of Mitra Partogi — Informatics Engineering student at ITS. Competitive programming, systems, robotics and data.";
 
 export const metadata: Metadata = {
-  title: `${personalInfo.name} — Informatics Engineer`,
+  title: `${personalInfo.name} `,
   description,
   openGraph: { title: `${personalInfo.name} — Informatics Engineer`, description, type: "website" },
 };

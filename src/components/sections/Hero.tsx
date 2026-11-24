@@ -6,12 +6,13 @@ import { site } from "@/data/site";
 import { clamp, docTop, easeInOutCubic, prefersReducedMotion, subscribeScroll } from "@/lib/scroll";
 import SplitText from "../SplitText";
 
-const work = site.work.items;
-// Arrangement: column 1 = items 1,3; column 2 = items 2,4.
-const columns = [
-  { images: [work[0].image, work[2].image], dur: "10s", delay: "-6.1s" },
-  { images: [work[1].image, work[3].image], dur: "18s", delay: "-6.1s" },
-];
+const work = site.work.images; // files in public/work/
+// Column 1 takes items 1, 3, 5…, column 2 takes 2, 4, 6…. Time scales with
+// the image count so speed stays the same whatever the number of photos.
+const columns = [0, 1].map((c) => {
+  const images = work.filter((_, i) => i % 2 === c);
+  return { images, dur: `${images.length * (c ? 9 : 5)}s`, delay: "-6.1s" };
+});
 
 // Photo box (desktop shifted right so the
 // face sits beside the headline). Shared by the photo and its light layers.
@@ -157,12 +158,12 @@ export default function Hero() {
           {columns.map((col, c) => (
             <div
               key={c}
-              className="wall-col flex flex-1 flex-col gap-[2.5vw]"
+              className="wall-col flex h-max flex-1 flex-col gap-[2.5vw] self-start"
               style={{ "--wall-gap": "2.5vw", "--wall-dur": col.dur, "--wall-delay": col.delay } as CSSProperties}
             >
-              {[...col.images, ...col.images].map((src, i) => (
+              {[...col.images, ...col.images, ...col.images].map((src, i) => (
                 <div key={i} className="relative aspect-[644/389] w-full shrink-0 overflow-hidden">
-                  <Image src={src} alt="" fill sizes="50vw" className="object-cover" />
+                  <Image src={src} alt="" fill sizes="50vw" loading="eager" className="object-cover" />
                 </div>
               ))}
             </div>

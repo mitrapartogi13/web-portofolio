@@ -1,8 +1,8 @@
 # Images
 
-One folder per section. The `awards/` files are still placeholders: replace
-one with the real photo **under the same name** and the site picks it up, no
-code change needed. Names and order match `src/data/site.ts`.
+One folder per section. To swap a photo, replace the file **under the same
+name** and the site picks it up, no code change needed. Paths are listed in
+`src/data/site.ts`.
 
 | Folder | Used by | Size | Format |
 |---|---|---|---|
