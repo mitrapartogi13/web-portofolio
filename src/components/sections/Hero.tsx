@@ -163,7 +163,7 @@ export default function Hero() {
             >
               {[...col.images, ...col.images, ...col.images].map((src, i) => (
                 <div key={i} className="relative aspect-[644/389] w-full shrink-0 overflow-hidden">
-                  <Image src={src} alt="" fill sizes="50vw" className="object-cover" />
+                  <Image src={src} alt="" fill sizes="50vw" loading="eager" className="object-cover" />
                 </div>
               ))}
             </div>

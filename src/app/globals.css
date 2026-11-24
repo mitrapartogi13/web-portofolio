@@ -89,7 +89,7 @@ html.lenis body {
 /* ---------- Motion ---------- */
 
 /* Work wall behind the hero: two columns drifting up forever. Each column
-   holds its images twice, so -50% (minus half a gap) is a seamless loop. */
+   holds its images 3 times; images load eagerly so no tile is blank. */
 @keyframes wall-up {
   to {
     /* Move up by exactly one set (column = 3 identical sets) for a seamless loop. */
