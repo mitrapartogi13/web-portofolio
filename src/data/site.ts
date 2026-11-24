@@ -26,30 +26,18 @@ export const site = {
     image: "/formal-enhanced.png",
   },
 
+  // Hero background wall: shots from public/work/, spread over two columns.
   work: {
-    title: ["Problems I've Solved"],
-    items: [
-      {
-        name: projects[0].shortTitle,
-        tags: ["Problem Setting", "C++"],
-        image: "/work/schematics.webp",
-      },
-      {
-        name: projects[1].shortTitle,
-        tags: ["Vision", "Robot Control"],
-        image: "/work/roboboat.webp",
-      },
-      {
-        name: projects[2].shortTitle,
-        tags: ["Data Analysis", "Energy"],
-        image: "/work/dhelibels.webp",
-      },
-      {
-        // DUMMY: illustrative side project (A* visualiser for DS labs).
-        name: "Search Field",
-        tags: ["Algorithms", "Visualisation"],
-        image: "/work/astar.webp",
-      },
+    images: [
+      "/work/projects-km-its.webp",
+      "/work/award-apec.webp",
+      "/work/projects-spmb-jatim.webp",
+      "/work/award-brainchallenges5.webp",
+      "/work/projects-senopati-ai.webp",
+      "/work/award-oracle.webp",
+      "/work/2026-schematics-expert.webp",
+      "/work/award-apec2.webp",
+      "/work/award-senopati-showcase.webp",
     ],
   },
 
