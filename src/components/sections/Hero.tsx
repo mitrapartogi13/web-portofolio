@@ -6,7 +6,7 @@ import { site } from "@/data/site";
 import { clamp, docTop, easeInOutCubic, prefersReducedMotion, subscribeScroll } from "@/lib/scroll";
 import SplitText from "../SplitText";
 
-const work = site.work.items;
+const work = site.work.items; // images live in public/work/
 // Arrangement: column 1 = items 1,3; column 2 = items 2,4.
 const columns = [
   { images: [work[0].image, work[2].image], dur: "10s", delay: "-6.1s" },
@@ -157,10 +157,10 @@ export default function Hero() {
           {columns.map((col, c) => (
             <div
               key={c}
-              className="wall-col flex flex-1 flex-col gap-[2.5vw]"
+              className="wall-col flex h-max flex-1 flex-col gap-[2.5vw] self-start"
               style={{ "--wall-gap": "2.5vw", "--wall-dur": col.dur, "--wall-delay": col.delay } as CSSProperties}
             >
-              {[...col.images, ...col.images].map((src, i) => (
+              {[...col.images, ...col.images, ...col.images, ...col.images].map((src, i) => (
                 <div key={i} className="relative aspect-[644/389] w-full shrink-0 overflow-hidden">
                   <Image src={src} alt="" fill sizes="50vw" className="object-cover" />
                 </div>

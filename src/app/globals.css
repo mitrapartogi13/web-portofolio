@@ -92,7 +92,8 @@ html.lenis body {
    holds its images twice, so -50% (minus half a gap) is a seamless loop. */
 @keyframes wall-up {
   to {
-    transform: translateY(calc(-50% - var(--wall-gap) / 2));
+    /* Move up by exactly one set (column = 4 identical sets) for a seamless loop. */
+    transform: translateY(calc((100% + var(--wall-gap)) / -4));
   }
 }
 
