@@ -192,13 +192,13 @@ export const site = {
 
   awards: {
     title: ["Awards and Contest", "Recognition"],
-    // From the CV, newest first. PLACEHOLDER images.
+    // From the CV, newest first.
     items: [
-      { title: "1st Place, Competitive Programming", meta: "2026 - PINGFEST UNS", image: "/images/awards/pingfest-2026.webp" },
-      { title: "1st Place, Competitive Programming", meta: "2025 - PINGFEST UNS", image: "/images/awards/pingfest-2025.webp" },
-      { title: "1st Place, International Brain Challenge", meta: "2024 - TELKOM UNIVERSITY", image: "/images/awards/ibc-2024.webp" },
-      { title: "1st Place, Duta Hemat Energi Jawa Timur", meta: "2023 - IIEE, KESDM RI, APEC", image: "/images/awards/dhe-2023.webp" },
-      { title: "Main Speaker, APEC Youngsters Forum", meta: "2023 - IIEE, KESDM RI, APEC", image: "/images/awards/apec-2023.webp" },
+      { title: "1st Place, Competitive Programming", meta: "2026 - PINGFEST UNS", image: "/images/awards/awards-certif-pingfest.webp" },
+      { title: "1st Place, Competitive Programming", meta: "2025 - PINGFEST UNS", image: "/images/awards/awards-certif-pingfest.webp" },
+      { title: "1st Place, International Brain Challenge", meta: "2024 - TELKOM UNIVERSITY", image: "/images/awards/award-brainchallenges5.webp" },
+      { title: "1st Place, Duta Hemat Energi Jawa Timur", meta: "2023 - IIEE, KESDM RI, APEC", image: "/images/awards/award-apec2.webp" },
+      { title: "Main Speaker, APEC Youngsters Forum", meta: "2023 - IIEE, KESDM RI, APEC", image: "/images/awards/award-apec.webp" },
     ],
   },
 
